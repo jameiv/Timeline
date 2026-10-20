@@ -4,8 +4,8 @@ compatibility_date = "2026-10-20"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "eurana-db"
-database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
+database_name = "euranadb"
+database_id = "1b665c9d-56f6-469e-ab00-360e1ebc21bb"
 
 [vars]
 # Replace with the exact origin where your GitHub Pages site is hosted.
