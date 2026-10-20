@@ -220,10 +220,15 @@ async function handler(request, env) {
 }
 export default {
   async fetch(request, env) {
-    try { return await handler(request, env); }
-    catch (err) {
-      // Keep implementation details out of client responses.
-      return json({ ok: false, err: "server" }, 500, env.ALLOWED_ORIGIN || "*");
+    try {
+      return await handler(request, env);
+    } catch (err) {
+      console.error("Worker request failed:", err);
+      return json(
+        { ok: false, err: "server" },
+        500,
+        env.ALLOWED_ORIGIN || "*"
+      );
     }
   }
 };
