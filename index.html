@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Chronicle: worldbuilding timeline</title>
+<title>Eurana timeline</title>
 <style>
-:root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--mut:rgba(55,53,47,.62);--ln:rgba(55,53,47,.14);--hv:rgba(55,53,47,.08);--ac:#2383e2;--c-conflict:#e03e3e;--c-domestic:#0f7b6c;--c-diplomatic:#0b6e99;--c-ideology:#6940a5;--c-economic:#cb912f;--c-disaster:#ad1a72;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#191919;--side:#202020;--ink:rgba(255,255,255,.85);--mut:rgba(255,255,255,.55);--ln:rgba(255,255,255,.13);--hv:rgba(255,255,255,.08);--c-conflict:#ff7369;--c-domestic:#4dab9a;--c-diplomatic:#529cca;--c-ideology:#9a6dd7;--c-economic:#ffa344;--c-disaster:#e255a1;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#191919;--side:#202020;--ink:rgba(255,255,255,.85);--mut:rgba(255,255,255,.55);--ln:rgba(255,255,255,.13);--hv:rgba(255,255,255,.08);--c-conflict:#ff7369;--c-domestic:#4dab9a;--c-diplomatic:#529cca;--c-ideology:#9a6dd7;--c-economic:#ffa344;--c-disaster:#e255a1;color-scheme:dark}
+:root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--mut:rgba(55,53,47,.62);--ln:rgba(55,53,47,.14);--hv:rgba(55,53,47,.08);--ac:#2383e2;--c-conflict:#EF3340;--c-domestic:#FE5000;--c-geopolitical:#753BBD;--c-economic:#FFC72C;--c-environment:#00B140;--c-other:#E10098;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#191919;--side:#202020;--ink:rgba(255,255,255,.85);--mut:rgba(255,255,255,.55);--ln:rgba(255,255,255,.13);--hv:rgba(255,255,255,.08);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#191919;--side:#202020;--ink:rgba(255,255,255,.85);--mut:rgba(255,255,255,.55);--ln:rgba(255,255,255,.13);--hv:rgba(255,255,255,.08);color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
 button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
@@ -43,7 +43,7 @@ h3{margin:22px 0 4px;font-size:15px}
 dialog{border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--ink);width:min(560px,calc(100vw - 24px));padding:16px;box-shadow:0 10px 40px #0004}
 dialog::backdrop{background:#0006}dialog.sd{margin:0 0 0 auto;height:100%;max-height:100%;border-radius:0;width:min(380px,100%);padding-top:calc(16px + env(safe-area-inset-top,0px))}
 .ph{display:flex;justify-content:space-between;align-items:center;gap:8px}.ph h2{margin:0;font-size:18px}
-.tr{display:grid;grid-template-columns:1fr 110px 36px;gap:8px;margin-bottom:6px}.th{font-size:12px;color:var(--mut)}
+.tr{display:grid;grid-template-columns:1fr 36px;gap:8px;margin-bottom:6px}.th{font-size:12px;color:var(--mut)}
 dialog input:not([type=file]),dialog textarea{border:1px solid var(--ln);border-radius:6px;padding:5px 8px;background:var(--bg);width:100%}
 details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .hr{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--ln)}
@@ -53,6 +53,9 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 .seg{display:inline-flex;border:1px solid var(--ln);border-radius:6px;overflow:hidden}.seg button{display:flex;align-items:center;gap:6px;padding:3px 10px;border:0;background:none;font-size:13px;color:var(--mut)}
 .seg button[aria-pressed="true"]{background:var(--hv);color:var(--ink);font-weight:500}
 .hx{position:absolute;left:0;right:0;top:26px;height:2px;background:var(--ln)}.vl{position:absolute;top:26px;bottom:0;width:1px;background:var(--ln);opacity:.5}
+.ic.sm{width:13px;height:13px;margin:0 4px;vertical-align:-2px;fill:#FFC72C;stroke:#E8A800}
+.star{position:relative;display:inline-flex;align-items:center;gap:6px;padding:5px 6px;border-radius:4px;cursor:pointer}.star:hover{background:var(--hv)}.star input{position:absolute;opacity:0;pointer-events:none}.star:has(input:checked) .ic{fill:#FFC72C;stroke:#E8A800}.star:has(input:focus-visible){outline:2px solid var(--ac)}
+#mj[aria-pressed="false"]{opacity:1}#mj[aria-pressed="true"]{background:var(--hv);font-weight:600}#mj[aria-pressed="true"] .ic{fill:#FFC72C;stroke:#E8A800}
 .hk{position:absolute;top:4px;font-size:12px;color:var(--mut);transform:translateX(-50%)}
 @media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--ln)}.page{padding:16px}h1{font-size:30px}}
 </style></head><body>
@@ -65,38 +68,48 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
 <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></symbol>
 <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.1-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></symbol>
 </defs></svg>
 <div class="app">
 <aside>
 <button class="nav" id="hb"><svg class="ic"><use href="#i-history"/></svg>History<span class="cnt" id="hn"></span></button>
 <button class="nav" id="ec"><svg class="ic"><use href="#i-globe"/></svg>Edit countries</button>
+<button class="nav" id="mj" aria-pressed="false"><svg class="ic"><use href="#i-star"/></svg>Major events only</button>
 <p class="sec">Event types</p><div id="types"></div>
 <p class="sec">Countries</p><div id="cf"></div>
 <button class="nav" id="clr" style="margin-top:8px">Clear filters</button>
 </aside>
 <main>
 <div class="top"><span class="sp" id="st" role="status"></span><button class="ib" id="tg" aria-label="Switch theme"><svg class="ic"><use id="tu" href="#i-moon"/></svg></button><button class="pri" id="ne"><svg class="ic"><use href="#i-plus"/></svg>New event</button></div>
-<div class="page"><h1>Timeline</h1><div class="mut">Filter by type and country in the sidebar. Open any event to edit its context and outcome.</div>
+<div class="page"><h1>Eurana timeline</h1><div class="mut">Filter by type and country in the sidebar. Open any event to edit its context and outcome.</div>
 <div class="tools"><div class="seg" role="group" aria-label="Timeline direction"><button id="dy" aria-pressed="true"><svg class="ic"><use href="#i-down"/></svg>Scroll down</button><button id="dx" aria-pressed="false"><svg class="ic"><use href="#i-right"/></svg>Scroll across</button></div><label>Zoom <input type="range" id="zoom" min="2" max="40" value="12"></label></div>
 <div id="tl"></div></div>
 </main></div>
 <section id="panel" hidden></section>
 <dialog id="cd">
 <div class="ph"><h2>Countries</h2><button class="b" id="cx">Done</button></div>
-<p class="mut">One row per country. Leave Founded blank if it has always existed. Events that start before a country’s founding show it as “(region)”.</p>
+<p class="mut">One row per country.</p>
 <div id="ct"></div><button class="b" id="ca">Add row</button>
 <details><summary>Import from a spreadsheet</summary>
-<p class="mut">Paste two columns (Name, Founded year) copied from Excel or Sheets, or load a CSV. Matching names are updated; new names are added.</p>
+<p class="mut">Paste a column of country names copied from Excel or Sheets, or load a CSV. New names are added and existing ones are skipped.</p>
 <textarea id="cp" rows="4" placeholder="Name&#9;Founded"></textarea>
-<div class="acts"><button class="b" id="ci">Import pasted rows</button><label class="b">Load CSV<input type="file" id="cfile" accept=".csv,.tsv,.txt" hidden></label><button class="b" id="cdl" hidden>Download CSV template</button></div></details>
+<div class="acts"><button class="b" id="ci">Import pasted rows</button><label class="b">Load CSV<input type="file" id="cfile" accept=".csv,.tsv,.txt" hidden></label><button class="b" id="cdl">Download CSV template</button></div></details>
 </dialog>
 <dialog id="hd" class="sd">
 <div class="ph"><h2>History</h2><button class="b" id="hx">Close</button></div>
 <p class="mut">Recent changes from this session. Undo reverses one change without touching later edits. Reloading the page clears this list.</p>
 <div id="hl"></div>
 </dialog>
+<dialog id="ld">
+<div class="ph"><h2>Sign in</h2></div>
+<p class="mut">Enter the shared password to view and edit the timeline.</p>
+<input id="lp" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password">
+<input id="ln" placeholder="Your name (shown in the activity feed)" aria-label="Your name" style="margin-top:8px">
+<p class="mut" id="le" style="color:var(--c-conflict)"></p>
+<div class="acts"><button class="pri" id="lb">Sign in</button></div>
+</dialog>
 <script>
-const TYPES=[["conflict","Conflict"],["domestic","Domestic"],["diplomatic","Diplomatic"],["ideology","Ideology"],["economic","Economic"],["disaster","Disaster"]];
+const TYPES=[["conflict","Conflict"],["domestic","Domestic"],["geopolitical","Geopolitical"],["economic","Economic"],["environment","Environment"],["other","Other"]];
 const TN=Object.fromEntries(TYPES),LS="chronicle-v2",$=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const uid=()=>Math.random().toString(36).slice(2,9),clone=x=>x===undefined?x:JSON.parse(JSON.stringify(x));
@@ -107,18 +120,39 @@ let S={range:null,countries:[{id:"a",name:"Aldoria",year:100},{id:"b",name:"Veyr
 {id:"e4",title:"Age of Reform",kind:"long",type:"domestic",start:300,end:340,cs:["a"],context:"",outcome:""}]};
 let sel=null,off=new Set(),onC=new Set(),db=null,saveT=null,saving=false,base,H=[];
 const cur=()=>S.events.find(e=>e.id===sel),setSt=t=>$("#st").textContent=t;
-const cn=(c,e)=>c.name+(c.year!=null&&e.start<c.year?" (region)":"");
+const cn=c=>c.name;
 const span=e=>[e.start,e.kind==="long"?Math.max(e.end??e.start,e.start):e.start];
 function grow(e){const[a,b]=span(e),R=S.range;if(!R)S.range={lo:a-5,hi:b+5};else{if(a<R.lo)R.lo=a-5;if(b>R.hi)R.hi=b+5}}
-function norm(){if(!S.range&&S.events.length){const s=S.events.map(span);S.range={lo:Math.min(...s.map(x=>x[0]))-5,hi:Math.max(...s.map(x=>x[1]))+5}}}
+function norm(){S.countries.forEach(c=>delete c.year);S.events.forEach(e=>{e.type={ideology:"geopolitical",disaster:"environment",diplomatic:"geopolitical"}[e.type]||e.type});if(!S.range&&S.events.length){const s=S.events.map(span);S.range={lo:Math.min(...s.map(x=>x[0]))-5,hi:Math.max(...s.map(x=>x[1]))+5}}}
 function fit(){const R=S.range,n=R?R.hi-R.lo:50;$("#zoom").value=Math.max(3,Math.min(40,Math.round((DIR==="x"?900:620)/n)))}
 function touch(){setSt("Saving…");clearTimeout(saveT);saveT=setTimeout(flush,500)}
+const API="https://script.google.com/macros/s/AKfycbxSvn6uTmp10Lz6V-sG4tTgVYbVDCr4o5j4WdFvc2RfpyMdZLw6bNrpJ98qPrCo9xv5/exec",LIVE=API.startsWith("https://");
+let tok=localStorage.getItem("chronicle-token")||"",who=localStorage.getItem("chronicle-name")||"",srv=null;
+const api=b=>fetch(API,{method:"POST",body:JSON.stringify({...b,token:tok,who})}).then(r=>r.json());
+function applyItems(st,items){items.forEach(it=>{const a=st[it.k],i=a.findIndex(x=>x.id===it.id);
+ if(it.add){if(i<0)a.push(clone(it.add))}else if(it.del){if(i>=0)a.splice(i,1)}else if(i>=0)for(const p in it.f)a[i][p]=clone(it.f[p][1])});return st}
 async function flush(){
- if(saving){saveT=setTimeout(flush,300);return}
- saving=true;const snap=clone(S);
- try{localStorage.setItem(LS,JSON.stringify(snap))}catch(e){}
- try{if(db){await db.doc("app/state").set(snap);setSt("All changes saved")}else setSt("Saved in this browser")}catch(e){setSt("Saved in this browser only")}
- saving=false}
+ if(!LIVE){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}setSt("Saved in this browser");return}
+ if(saving){saveT=setTimeout(flush,300);return}await sync()}
+async function sync(first){
+ saving=true;const sent=clone(S),items=srv?diff(srv,S):[];
+ try{const r=await api({a:"save",items,range:S.range});
+  if(!r.ok){if(r.err==="auth"){tok="";localStorage.removeItem("chronicle-token");login();return}throw 0}
+  const pend=diff(sent,S),old=clone(S);
+  S=applyItems(clone(r.state),pend);srv=clone(r.state);
+  if(first)init();
+  else{const ch=diff(old,S);if(ch.length||JSON.stringify(old.range)!==JSON.stringify(S.range)){applyItems(base,ch);const f=document.activeElement;f&&f.closest("#panel,dialog")?(renderSide(),renderTL()):render()}}
+  setSt("All changes saved");if(diff(srv,S).length)saveT=setTimeout(flush,300)}
+ catch(e){setSt("Can\u2019t reach the server. Retrying\u2026");saveT=setTimeout(flush,5000)}
+ finally{saving=false}}
+function login(){$("#ln").value=who;if(!$("#ld").open)$("#ld").showModal()}
+$("#ld").addEventListener("cancel",e=>e.preventDefault());
+$("#lp").onkeydown=e=>{if(e.key==="Enter")$("#lb").click()};
+$("#lb").onclick=async()=>{$("#le").textContent="";
+ try{const r=await fetch(API,{method:"POST",body:JSON.stringify({a:"login",password:$("#lp").value})}).then(r=>r.json());
+  if(!r.ok){$("#le").textContent="That password isn\u2019t right.";return}
+  tok=r.token;who=$("#ln").value.trim();localStorage.setItem("chronicle-token",tok);localStorage.setItem("chronicle-name",who);
+  $("#lp").value="";$("#ld").close();sync(true)}catch(e){$("#le").textContent="Can\u2019t reach the server."}};
 function diff(a,b){const out=[];
  for(const k of["events","countries"]){
   const A=new Map(a[k].map(x=>[x.id,x])),B=new Set(b[k].map(x=>x.id));
@@ -146,7 +180,7 @@ function renderSide(){
 function renderTL(){
  const px=+$("#zoom").value,el=$("#tl"),R=S.range;
  if(!R||!S.events.length){el.innerHTML='<p class="empty">No events yet. Choose New event to add the first one.</p>';return}
- const evs=S.events.filter(e=>!off.has(e.type)&&(!onC.size||e.cs.some(c=>onC.has(c)))).sort((a,b)=>a.start-b.start);
+ const evs=S.events.filter(e=>!off.has(e.type)&&(!majOnly||e.major)&&(!onC.size||e.cs.some(c=>onC.has(c)))).sort((a,b)=>a.start-b.start);
  if(!evs.length){el.innerHTML='<p class="empty">No events match these filters.</p>';return}
  if(DIR==="x")return renderX(evs,px,R,el);
  const Y=y=>(y-R.lo)*px+10,end=e=>span(e)[1];
@@ -160,7 +194,7 @@ function renderTL(){
  const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"";return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="top:${Y(e.start)}px" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="top:${ny[i]}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
  const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
   return `<button class="bk${e.id===sel?" on":""}" style="left:${264+bl[i]*176}px;top:${Y(e.start)}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
- el.innerHTML=`<div class="cv" style="width:${W}px;height:${HT}px"><i class="ax"></i>${g}${nh}${bk}</div>`}
+ el.innerHTML=`<div class="cv" style="width:${W}px;height:${HT}px"><i class="ax"></i>${g}${nh}${bk}</div>`;stars()}
 function renderX(evs,px,R,el){
  const X=y=>(y-R.lo)*px+16,end=e=>span(e)[1];
  const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
@@ -174,7 +208,7 @@ function renderX(evs,px,R,el){
  const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*26;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${X(e.start)+12}px;top:${t}px;width:${nw(e)-20}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
  const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
   return `<button class="bk${e.id===sel?" on":""}" style="left:${X(e.start)}px;top:${bT+bl[i]*70}px;width:${bw(e)}px;height:62px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
- el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*70+16}px"><i class="hx"></i>${g}${nh}${bk}</div>`}
+ el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*70+16}px"><i class="hx"></i>${g}${nh}${bk}</div>`;stars()}
 function renderPanel(){
  const p=$("#panel"),e=cur();
  if(!e){p.hidden=true;p.innerHTML="";return}
@@ -183,6 +217,7 @@ function renderPanel(){
 <input class="ttl" data-f="title" value="${esc(e.title)}" placeholder="Untitled" aria-label="Title">
 <div class="pr"><span>Kind</span><select data-f="kind"><option value="trigger"${long?"":" selected"}>Trigger event</option><option value="long"${long?" selected":""}>Long-term event</option></select></div>
 <div class="pr"><span>Type</span><select data-f="type">${TYPES.map(([id,n])=>`<option value="${id}"${e.type===id?" selected":""}>${n}</option>`).join("")}</select></div>
+<div class="pr"><span>Major</span><label class="star"><input type="checkbox" data-m${e.major?" checked":""}>${ic("star")}<span>Mark as major</span></label></div>
 <div class="pr"><span>${long?"Start year":"Year"}</span><input type="number" data-f="start" value="${e.start}"></div>
 ${long?`<div class="pr"><span>End year</span><input type="number" data-f="end" value="${e.end??e.start}"></div>`:""}
 <div class="pr"><span>Countries</span><div id="cc">${chips(e)}</div></div>
@@ -190,14 +225,15 @@ ${long?`<div class="pr"><span>End year</span><input type="number" data-f="end" v
 <h3>Outcome</h3><textarea data-f="outcome" placeholder="What changed afterwards?">${esc(e.outcome)}</textarea>
 <button class="b danger" data-a="del">Delete event</button>`}
 function render(){renderSide();renderTL();renderPanel()}
-function renderCT(){$("#ct").innerHTML='<div class="tr th"><span>Name</span><span>Founded</span><span></span></div>'+S.countries.map(c=>`<div class="tr" data-k="${c.id}"><input data-g="name" value="${esc(c.name)}" aria-label="Country name"><input type="number" data-g="year" value="${c.year??""}" aria-label="Founded year"><button class="b" data-del="${c.id}" aria-label="Delete ${esc(c.name)}">${ic("x")}</button></div>`).join("")}
+function renderCT(){$("#ct").innerHTML='<div class="tr th"><span>Name</span><span></span></div>'+S.countries.map(c=>`<div class="tr" data-k="${c.id}"><input data-g="name" value="${esc(c.name)}" aria-label="Country name"><button class="b" data-del="${c.id}" aria-label="Delete ${esc(c.name)}">${ic("x")}</button></div>`).join("")}
 const open=id=>{sel=id;renderTL();renderPanel()},closeP=()=>{sel=null;renderTL();renderPanel()};
 $("#tl").onclick=ev=>{const b=ev.target.closest("[data-e]");if(b)open(b.dataset.e)};
 $("#zoom").oninput=renderTL;
 document.onkeydown=ev=>{if(ev.key==="Escape"&&sel&&!document.querySelector("dialog[open]"))closeP()};
 $("#types").onclick=ev=>{const b=ev.target.closest("[data-t]");if(!b)return;off.has(b.dataset.t)?off.delete(b.dataset.t):off.add(b.dataset.t);renderSide();renderTL()};
 $("#cf").oninput=ev=>{const id=ev.target.dataset.cf;if(!id)return;ev.target.checked?onC.add(id):onC.delete(id);renderTL()};
-$("#clr").onclick=()=>{off.clear();onC.clear();renderSide();renderTL()};
+$("#clr").onclick=()=>{off.clear();onC.clear();majOnly=false;$("#mj").setAttribute("aria-pressed","false");renderSide();renderTL()};
+$("#mj").onclick=()=>{majOnly=!majOnly;$("#mj").setAttribute("aria-pressed",majOnly);renderTL()};
 $("#ne").onclick=()=>{const last=S.events.length?Math.max(...S.events.map(e=>e.start)):0;
  const e={id:uid(),title:"Untitled event",kind:"trigger",type:"conflict",start:last,end:last,cs:[],context:"",outcome:""};
  S.events.push(e);off.delete("conflict");grow(e);commit();touch();renderSide();open(e.id)};
@@ -205,7 +241,7 @@ $("#panel").oninput=ev=>{const t=ev.target,e=cur();if(!e)return;const f=t.datase
  if(f){let v=t.value;if(t.type==="number"){if(v===""||isNaN(+v))return;v=+v}e[f]=v;
   if(f==="kind"){if(v==="long"&&(e.end==null||e.end<e.start))e.end=e.start;grow(e);commit();renderPanel();renderTL();touch();return}
   if(f==="start"||f==="end"){if(e.end<e.start)e.end=e.start;if(f==="start")$("#cc").innerHTML=chips(e);touch();return}}
- else if(t.dataset.c){const a=new Set(e.cs);t.checked?a.add(t.dataset.c):a.delete(t.dataset.c);e.cs=[...a]}
+ else if(t.dataset.c){const a=new Set(e.cs);t.checked?a.add(t.dataset.c):a.delete(t.dataset.c);e.cs=[...a]} else if("m" in t.dataset)e.major=t.checked;
  else return;
  touch();renderTL()};
 $("#panel").onchange=()=>{const e=cur();if(!e)return;grow(e);renderTL();commit()};
@@ -214,22 +250,24 @@ $("#panel").onclick=ev=>{const b=ev.target.closest("[data-a]");if(!b)return;
 $("#hb").onclick=()=>{renderH();$("#hd").showModal()};$("#hx").onclick=()=>$("#hd").close();
 $("#hl").onclick=ev=>{const id=ev.target.dataset.u;if(id)undo(id)};
 $("#ec").onclick=()=>{renderCT();$("#cd").showModal()};$("#cx").onclick=()=>$("#cd").close();
-$("#ca").onclick=()=>{S.countries.push({id:uid(),name:"New country",year:null});commit();touch();renderCT();render()};
+$("#ca").onclick=()=>{S.countries.push({id:uid(),name:"New country"});commit();touch();renderCT();render()};
 $("#ct").oninput=ev=>{const t=ev.target,c=S.countries.find(c=>c.id===t.closest("[data-k]")?.dataset.k);if(!c||!t.dataset.g)return;
- c[t.dataset.g]=t.dataset.g==="year"?(t.value===""?null:+t.value):t.value;touch();render()};
+ c.name=t.value;touch();render()};
 $("#ct").onchange=commit;
 $("#ct").onclick=ev=>{const id=ev.target.closest("[data-del]")?.dataset.del;if(!id)return;
  S.countries=S.countries.filter(c=>c.id!==id);S.events.forEach(e=>e.cs=e.cs.filter(x=>x!==id));onC.delete(id);commit();touch();renderCT();render()};
 function imp(txt){let n=0;txt.split(/\r?\n/).forEach(ln=>{if(!ln.trim())return;
- const p=ln.split(/\t|,/).map(s=>s.trim().replace(/^"|"$/g,"")),name=p[0];if(!name)return;
- const y=p[1]===undefined||p[1]===""?null:+p[1];if(y!==null&&isNaN(y))return;
- const c=S.countries.find(c=>c.name.toLowerCase()===name.toLowerCase());if(c)c.year=y;else S.countries.push({id:uid(),name,year:y});n++});
+ const p=ln.split(/\t|,/).map(s=>s.trim().replace(/^"|"$/g,"")),name=p[0];if(!name||/^name$/i.test(name))return;
+ 
+ const c=S.countries.find(c=>c.name.toLowerCase()===name.toLowerCase());if(!c){S.countries.push({id:uid(),name});n++}});
  if(n){commit();touch();renderCT();render()}}
 $("#ci").onclick=()=>{imp($("#cp").value);$("#cp").value=""};
 $("#cfile").onchange=ev=>{const f=ev.target.files[0];if(f)f.text().then(imp);ev.target.value=""};
-$("#cdl").onclick=async()=>{try{const d=await window.claude.use("downloads"),r=S.countries.length?S.countries:[{name:"Example Kingdom",year:100}];
- await d.save({filename:"countries.csv",data:"Name,Founded\n"+r.map(c=>`"${c.name.replace(/"/g,'""')}",${c.year??""}`).join("\n")})}catch(e){}};
+$("#cdl").onclick=()=>{const r=S.countries.length?S.countries:[{name:"Example Kingdom"}],a=document.createElement("a");
+ a.href=URL.createObjectURL(new Blob(["Name\n"+r.map(c=>`"${c.name.replace(/"/g,'""')}"`).join("\n")],{type:"text/csv"}));a.download="countries.csv";a.click()};
 const ic=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+let majOnly=false;
+function stars(){document.querySelectorAll("#tl .nd,#tl .bk").forEach(b=>{const e=S.events.find(x=>x.id===b.dataset.e);if(e&&e.major)b.querySelector("b").insertAdjacentHTML(b.classList.contains("bk")?"afterbegin":"beforeend",ic("star").replace('class="ic"','class="ic sm"'))})}
 const UI=(()=>{try{return JSON.parse(localStorage.getItem("chronicle-ui"))||{}}catch(e){return{}}})();
 let DIR=UI.dir==="x"?"x":"y";
 if(UI.theme)document.documentElement.dataset.theme=UI.theme;
@@ -241,10 +279,10 @@ $("#tg").onclick=()=>{document.documentElement.dataset.theme=isDark()?"light":"d
 $("#dy").onclick=()=>setDir("y");$("#dx").onclick=()=>setDir("x");
 function init(){norm();fit();applyUI();base=clone(S);sel=null;render();renderH()}
 (async()=>{
- try{const t=localStorage.getItem(LS);if(t)S=JSON.parse(t)}catch(e){}
- init();setSt("Saved in this browser");
- try{if(window.claude){const d=await window.claude.use("db");if(d){db=d;const s=await d.doc("app/state").get();
-  if(s.exists){S=clone(s.data());init()}setSt("All changes saved")}
-  window.claude.use("downloads").then(x=>{if(x)$("#cdl").hidden=false})}}catch(e){}
+ if(!LIVE){try{const t=localStorage.getItem(LS);if(t)S=JSON.parse(t)}catch(e){}init();setSt("Not connected: saving in this browser only");return}
+ S={range:null,countries:[],events:[]};init();setSt("Connecting\u2026");
+ setInterval(()=>{if(!saving&&!document.hidden&&tok)sync(!srv)},20000);
+ if(!tok)return login();
+ await sync(true);
 })();
 </script></body></html>
