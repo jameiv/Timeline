@@ -1,0 +1,13 @@
+name = "eurana-api"
+main = "src/index.js"
+compatibility_date = "2026-10-20"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "eurana-db"
+database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
+
+[vars]
+# Replace with the exact origin where your GitHub Pages site is hosted.
+# Example: https://jameiv.github.io
+ALLOWED_ORIGIN = "https://jameiv.github.io"
