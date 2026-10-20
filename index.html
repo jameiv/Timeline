@@ -127,7 +127,7 @@ function grow(e){const[a,b]=span(e),R=S.range;if(!R)S.range={lo:a-5,hi:b+5};else
 function norm(){S.countries.forEach(c=>delete c.year);S.events.forEach(e=>{e.type={ideology:"geopolitical",disaster:"environment",diplomatic:"geopolitical"}[e.type]||e.type});if(!S.range&&S.events.length){const s=S.events.map(span);S.range={lo:Math.min(...s.map(x=>x[0]))-5,hi:Math.max(...s.map(x=>x[1]))+5}}}
 function fit(){const R=S.range,n=R?R.hi-R.lo:50;$("#zoom").value=Math.max(3,Math.min(40,Math.round((DIR==="x"?900:620)/n)))}
 function touch(){setSt("Saving…");clearTimeout(saveT);saveT=setTimeout(flush,500)}
-const API="https://REPLACE-WITH-YOUR-WORKER.workers.dev",LIVE=API.startsWith("https://")&&!API.includes("REPLACE-WITH-YOUR-WORKER");
+const API="https://eurana-api.maniacgaming2007.workers.dev",LIVE=API.startsWith("https://")&&!API.includes("REPLACE-WITH-YOUR-WORKER");
 let tok=localStorage.getItem("chronicle-token")||"",who=localStorage.getItem("chronicle-name")||"",srv=null;
 const api=b=>fetch(API,{method:"POST",headers:{"Content-Type":"application/json","Authorization":tok?`Bearer ${tok}`:""},body:JSON.stringify({...b,who})}).then(r=>r.json());
 function applyItems(st,items){items.forEach(it=>{const a=st[it.k],i=a.findIndex(x=>x.id===it.id);
