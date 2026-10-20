@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chronicle: worldbuilding timeline</title>
+<style>
+:root{--bg:#fff;--side:#f7f7f5;--ink:#37352f;--mut:rgba(55,53,47,.62);--ln:rgba(55,53,47,.14);--hv:rgba(55,53,47,.08);--ac:#2383e2;--c-conflict:#e03e3e;--c-domestic:#0f7b6c;--c-diplomatic:#0b6e99;--c-ideology:#6940a5;--c-economic:#cb912f;--c-disaster:#ad1a72;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#191919;--side:#202020;--ink:rgba(255,255,255,.85);--mut:rgba(255,255,255,.55);--ln:rgba(255,255,255,.13);--hv:rgba(255,255,255,.08);--c-conflict:#ff7369;--c-domestic:#4dab9a;--c-diplomatic:#529cca;--c-ideology:#9a6dd7;--c-economic:#ffa344;--c-disaster:#e255a1;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#191919;--side:#202020;--ink:rgba(255,255,255,.85);--mut:rgba(255,255,255,.55);--ln:rgba(255,255,255,.13);--hv:rgba(255,255,255,.08);--c-conflict:#ff7369;--c-domestic:#4dab9a;--c-diplomatic:#529cca;--c-ideology:#9a6dd7;--c-economic:#ffa344;--c-disaster:#e255a1;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr)}
+aside{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:auto;background:var(--side);border-right:1px solid var(--ln);padding:12px 8px}
+.ws{padding:4px 8px 10px;font-weight:600}.sec{margin:16px 8px 4px;font-size:12px;font-weight:600;color:var(--mut)}
+.nav{display:flex;align-items:center;gap:8px;width:100%;min-height:28px;padding:3px 8px;border:0;border-radius:4px;background:none;text-align:left}.nav:hover{background:var(--hv)}
+.nav[aria-pressed="false"]{opacity:.45}.sw{width:10px;height:10px;border-radius:3px;flex:none}.cnt{margin-left:auto;font-size:12px;color:var(--mut)}
+.top{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:var(--mut)}.top .sp{margin-left:auto}
+.page{max-width:1100px;margin:0 auto;padding:24px 48px 80px}h1{font-size:38px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}.mut{color:var(--mut)}
+.b{padding:4px 10px;border:1px solid var(--ln);border-radius:6px;background:var(--bg)}.b:hover{background:var(--hv)}
+.pri{background:var(--ac);color:#fff;border:0;border-radius:6px;padding:5px 12px;font-weight:500}
+.tools{display:flex;gap:12px;align-items:center;margin:14px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--ln);font-size:13px;color:var(--mut)}
+#tl{overflow-x:auto;position:relative}.cv{position:relative}
+.ax{position:absolute;left:56px;top:0;bottom:0;width:2px;background:var(--ln)}.gl{position:absolute;left:58px;right:0;height:1px;background:var(--ln);opacity:.5}
+.tk{position:absolute;left:0;width:48px;text-align:right;font-size:12px;color:var(--mut);transform:translateY(-50%)}
+.dot{position:absolute;left:49px;width:16px;height:16px;padding:0;border-radius:50%;background:var(--c);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--c);transform:translateY(-50%)}
+.dot.on{box-shadow:0 0 0 3px var(--ac)}
+.nd{position:absolute;left:74px;width:176px;height:22px;display:flex;gap:6px;align-items:center;border:0;background:none;text-align:left;border-radius:4px;padding:0 6px}
+.nd:hover,.nd.on{background:var(--hv)}.nd b{font-weight:400;font-size:12px;color:var(--mut);flex:none}.nd span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.bk{position:absolute;width:168px;text-align:left;border:1px solid var(--ln);border-left:4px solid var(--c);border-radius:6px;background:color-mix(in srgb,var(--c) 9%,var(--bg));padding:6px 8px;overflow:hidden;display:flex;flex-direction:column;gap:3px}
+.bk:hover{background:color-mix(in srgb,var(--c) 16%,var(--bg))}.bk.on{outline:2px solid var(--ac)}
+.bk b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bk small{font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{position:relative;display:inline-block;padding:0 7px;border-radius:4px;font-size:12px;line-height:20px;background:color-mix(in srgb,var(--c) 20%,var(--bg))}
+.empty{padding:48px 0;color:var(--mut)}
+#panel{position:fixed;top:0;right:0;bottom:0;z-index:5;width:min(520px,100%);background:var(--bg);border-left:1px solid var(--ln);box-shadow:-8px 0 30px #0002;overflow:auto;padding:calc(14px + env(safe-area-inset-top,0px)) 28px calc(40px + env(safe-area-inset-bottom,0px))}
+.top2{display:flex;align-items:center;gap:10px}.ttl{width:100%;margin:10px 0 12px;padding:4px 0;border:0;background:none;outline:none;font-size:30px;font-weight:700}
+.pr{display:grid;grid-template-columns:100px 1fr;align-items:start;min-height:32px;padding:2px 0}.pr>span{color:var(--mut);padding:5px 0}
+.pr select,.pr input{width:100%;border:0;background:none;padding:5px 6px;border-radius:4px}.pr select:hover,.pr input:hover,.pr select:focus,.pr input:focus{background:var(--hv)}
+h3{margin:22px 0 4px;font-size:15px}
+#panel textarea{width:100%;min-height:120px;resize:vertical;padding:8px;border:1px solid transparent;border-radius:6px;background:none}#panel textarea:hover,#panel textarea:focus{border-color:var(--ln)}
+.opt{cursor:pointer;margin:2px 4px 2px 0;padding:0 8px;background:var(--hv)}.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt:has(input:checked){background:color-mix(in srgb,var(--ac) 24%,var(--bg))}.opt:has(input:checked)::before{content:"✓ "}.opt:has(input:focus-visible){outline:2px solid var(--ac)}
+.danger{margin-top:24px;color:var(--c-conflict)}
+dialog{border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--ink);width:min(560px,calc(100vw - 24px));padding:16px;box-shadow:0 10px 40px #0004}
+dialog::backdrop{background:#0006}dialog.sd{margin:0 0 0 auto;height:100%;max-height:100%;border-radius:0;width:min(380px,100%);padding-top:calc(16px + env(safe-area-inset-top,0px))}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:8px}.ph h2{margin:0;font-size:18px}
+.tr{display:grid;grid-template-columns:1fr 110px 36px;gap:8px;margin-bottom:6px}.th{font-size:12px;color:var(--mut)}
+dialog input:not([type=file]),dialog textarea{border:1px solid var(--ln);border-radius:6px;padding:5px 8px;background:var(--bg);width:100%}
+details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.hr{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--ln)}
+.ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.nav .ic{color:var(--mut)}
+.b,.pri{display:inline-flex;align-items:center;gap:6px}
+.ib{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border:0;border-radius:6px;background:none;color:var(--mut)}.ib:hover{background:var(--hv);color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--ln);border-radius:6px;overflow:hidden}.seg button{display:flex;align-items:center;gap:6px;padding:3px 10px;border:0;background:none;font-size:13px;color:var(--mut)}
+.seg button[aria-pressed="true"]{background:var(--hv);color:var(--ink);font-weight:500}
+.hx{position:absolute;left:0;right:0;top:26px;height:2px;background:var(--ln)}.vl{position:absolute;top:26px;bottom:0;width:1px;background:var(--ln);opacity:.5}
+.hk{position:absolute;top:4px;font-size:12px;color:var(--mut);transform:translateX(-50%)}
+@media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--ln)}.page{padding:16px}h1{font-size:30px}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></symbol>
+<symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+</defs></svg>
+<div class="app">
+<aside>
+<button class="nav" id="hb"><svg class="ic"><use href="#i-history"/></svg>History<span class="cnt" id="hn"></span></button>
+<button class="nav" id="ec"><svg class="ic"><use href="#i-globe"/></svg>Edit countries</button>
+<p class="sec">Event types</p><div id="types"></div>
+<p class="sec">Countries</p><div id="cf"></div>
+<button class="nav" id="clr" style="margin-top:8px">Clear filters</button>
+</aside>
+<main>
+<div class="top"><span class="sp" id="st" role="status"></span><button class="ib" id="tg" aria-label="Switch theme"><svg class="ic"><use id="tu" href="#i-moon"/></svg></button><button class="pri" id="ne"><svg class="ic"><use href="#i-plus"/></svg>New event</button></div>
+<div class="page"><h1>Timeline</h1><div class="mut">Filter by type and country in the sidebar. Open any event to edit its context and outcome.</div>
+<div class="tools"><div class="seg" role="group" aria-label="Timeline direction"><button id="dy" aria-pressed="true"><svg class="ic"><use href="#i-down"/></svg>Scroll down</button><button id="dx" aria-pressed="false"><svg class="ic"><use href="#i-right"/></svg>Scroll across</button></div><label>Zoom <input type="range" id="zoom" min="2" max="40" value="12"></label></div>
+<div id="tl"></div></div>
+</main></div>
+<section id="panel" hidden></section>
+<dialog id="cd">
+<div class="ph"><h2>Countries</h2><button class="b" id="cx">Done</button></div>
+<p class="mut">One row per country. Leave Founded blank if it has always existed. Events that start before a country’s founding show it as “(region)”.</p>
+<div id="ct"></div><button class="b" id="ca">Add row</button>
+<details><summary>Import from a spreadsheet</summary>
+<p class="mut">Paste two columns (Name, Founded year) copied from Excel or Sheets, or load a CSV. Matching names are updated; new names are added.</p>
+<textarea id="cp" rows="4" placeholder="Name&#9;Founded"></textarea>
+<div class="acts"><button class="b" id="ci">Import pasted rows</button><label class="b">Load CSV<input type="file" id="cfile" accept=".csv,.tsv,.txt" hidden></label><button class="b" id="cdl" hidden>Download CSV template</button></div></details>
+</dialog>
+<dialog id="hd" class="sd">
+<div class="ph"><h2>History</h2><button class="b" id="hx">Close</button></div>
+<p class="mut">Recent changes from this session. Undo reverses one change without touching later edits. Reloading the page clears this list.</p>
+<div id="hl"></div>
+</dialog>
+<script>
+const TYPES=[["conflict","Conflict"],["domestic","Domestic"],["diplomatic","Diplomatic"],["ideology","Ideology"],["economic","Economic"],["disaster","Disaster"]];
+const TN=Object.fromEntries(TYPES),LS="chronicle-v2",$=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9),clone=x=>x===undefined?x:JSON.parse(JSON.stringify(x));
+let S={range:null,countries:[{id:"a",name:"Aldoria",year:100},{id:"b",name:"Veyra",year:150},{id:"k",name:"Kessin",year:325}],events:[
+{id:"e1",title:"Murder at Harrow Bridge",kind:"trigger",type:"conflict",start:320,end:320,cs:["a","b"],context:"The Veyran envoy was killed on neutral ground.",outcome:"Aldoria blamed for the killing; ultimatums followed."},
+{id:"e2",title:"The Salt War",kind:"long",type:"conflict",start:321,end:329,cs:["a","b","k"],context:"Fighting over the salt flats after Harrow Bridge.",outcome:"Stalemate, then the Treaty of Marrow."},
+{id:"e3",title:"Treaty of Marrow",kind:"trigger",type:"diplomatic",start:330,end:330,cs:["a","b","k"],context:"",outcome:""},
+{id:"e4",title:"Age of Reform",kind:"long",type:"domestic",start:300,end:340,cs:["a"],context:"",outcome:""}]};
+let sel=null,off=new Set(),onC=new Set(),db=null,saveT=null,saving=false,base,H=[];
+const cur=()=>S.events.find(e=>e.id===sel),setSt=t=>$("#st").textContent=t;
+const cn=(c,e)=>c.name+(c.year!=null&&e.start<c.year?" (region)":"");
+const span=e=>[e.start,e.kind==="long"?Math.max(e.end??e.start,e.start):e.start];
+function grow(e){const[a,b]=span(e),R=S.range;if(!R)S.range={lo:a-5,hi:b+5};else{if(a<R.lo)R.lo=a-5;if(b>R.hi)R.hi=b+5}}
+function norm(){if(!S.range&&S.events.length){const s=S.events.map(span);S.range={lo:Math.min(...s.map(x=>x[0]))-5,hi:Math.max(...s.map(x=>x[1]))+5}}}
+function fit(){const R=S.range,n=R?R.hi-R.lo:50;$("#zoom").value=Math.max(3,Math.min(40,Math.round((DIR==="x"?900:620)/n)))}
+function touch(){setSt("Saving…");clearTimeout(saveT);saveT=setTimeout(flush,500)}
+async function flush(){
+ if(saving){saveT=setTimeout(flush,300);return}
+ saving=true;const snap=clone(S);
+ try{localStorage.setItem(LS,JSON.stringify(snap))}catch(e){}
+ try{if(db){await db.doc("app/state").set(snap);setSt("All changes saved")}else setSt("Saved in this browser")}catch(e){setSt("Saved in this browser only")}
+ saving=false}
+function diff(a,b){const out=[];
+ for(const k of["events","countries"]){
+  const A=new Map(a[k].map(x=>[x.id,x])),B=new Set(b[k].map(x=>x.id));
+  b[k].forEach(x=>{const o=A.get(x.id);if(!o)return out.push({k,id:x.id,add:clone(x)});
+   const f={};for(const p in x)if(JSON.stringify(x[p])!==JSON.stringify(o[p]))f[p]=[o[p],x[p]];
+   if(Object.keys(f).length)out.push({k,id:x.id,f})});
+  a[k].forEach((x,i)=>{if(!B.has(x.id))out.push({k,id:x.id,del:clone(x),i})})}
+ return out}
+function commit(){const items=diff(base,S);if(!items.length)return;
+ const nm=it=>{const o=it.add||it.del||S[it.k].find(x=>x.id===it.id)||{};return o.title||o.name||"Untitled"},w=it=>it.k==="events"?"event":"country";
+ const label=items.length>1?`${items.length} changes`:(it=>it.add?`Added ${w(it)} “${nm(it)}”`:it.del?`Deleted ${w(it)} “${nm(it)}”`:`Edited ${w(it)} “${nm(it)}”: ${Object.keys(it.f).map(k=>k==="cs"?"countries":k==="year"?"founded":k).join(", ")}`)(items[0]);
+ base=clone(S);H.unshift({id:uid(),t:new Date(),items,label,undone:false});H.length=Math.min(H.length,100);renderH()}
+function undo(id){const r=H.find(x=>x.id===id);if(!r||r.undone)return;
+ r.items.forEach(it=>{const a=S[it.k],i=a.findIndex(x=>x.id===it.id);
+  if(it.add){if(i>=0)a.splice(i,1)}
+  else if(it.del){if(i<0)a.splice(Math.min(it.i,a.length),0,clone(it.del))}
+  else if(i>=0)for(const p in it.f)a[i][p]=clone(it.f[p][0])});
+ r.undone=true;base=clone(S);touch();render();renderH()}
+function renderH(){$("#hl").innerHTML=H.length?H.map(r=>`<div class="hr"><div><div>${esc(r.label)}</div><div class="mut">${r.t.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}${r.undone?", undone":""}</div></div>${r.undone?"":`<button class="b" data-u="${r.id}">Undo</button>`}</div>`).join(""):'<p class="mut">No changes yet this session.</p>';
+ $("#hn").textContent=H.filter(r=>!r.undone).length||""}
+const chips=e=>S.countries.map(c=>`<label class="tag opt"><input type="checkbox" data-c="${c.id}" ${e.cs.includes(c.id)?"checked":""}>${esc(cn(c,e))}</label>`).join("")||'<span class="mut">No countries yet.</span>';
+function renderSide(){
+ $("#types").innerHTML=TYPES.map(([id,n])=>`<button class="nav" data-t="${id}" aria-pressed="${!off.has(id)}"><i class="sw" style="background:var(--c-${id})"></i>${n}</button>`).join("");
+ $("#cf").innerHTML=S.countries.map(c=>`<label class="nav"><input type="checkbox" data-cf="${c.id}" ${onC.has(c.id)?"checked":""}>${esc(c.name)}</label>`).join("")||'<p class="mut" style="margin:4px 8px">No countries yet.</p>'}
+function renderTL(){
+ const px=+$("#zoom").value,el=$("#tl"),R=S.range;
+ if(!R||!S.events.length){el.innerHTML='<p class="empty">No events yet. Choose New event to add the first one.</p>';return}
+ const evs=S.events.filter(e=>!off.has(e.type)&&(!onC.size||e.cs.some(c=>onC.has(c)))).sort((a,b)=>a.start-b.start);
+ if(!evs.length){el.innerHTML='<p class="empty">No events match these filters.</p>';return}
+ if(DIR==="x")return renderX(evs,px,R,el);
+ const Y=y=>(y-R.lo)*px+10,end=e=>span(e)[1];
+ const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
+ let prev=-99;const ny=nodes.map(e=>{const y=Math.max(Y(e.start)-11,prev+24);prev=y;return y});
+ const bh=e=>Math.max((end(e)-e.start)*px,70),ends=[];
+ const bl=blks.map(e=>{const s=Y(e.start);let l=ends.findIndex(v=>v<=s);if(l<0){l=ends.length;ends.push(0)}ends[l]=s+bh(e)+6;return l});
+ const HT=Math.max(Y(R.hi)+10,prev+30,...blks.map(e=>Y(e.start)+bh(e)+10)),W=264+Math.max(1,ends.length)*176;
+ const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=44)||10000;let g="";
+ for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="gl" style="top:${Y(y)}px"></i><span class="tk" style="top:${Y(y)}px">${y}</span>`;
+ const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"";return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="top:${Y(e.start)}px" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="top:${ny[i]}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
+ const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
+  return `<button class="bk${e.id===sel?" on":""}" style="left:${264+bl[i]*176}px;top:${Y(e.start)}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
+ el.innerHTML=`<div class="cv" style="width:${W}px;height:${HT}px"><i class="ax"></i>${g}${nh}${bk}</div>`}
+function renderX(evs,px,R,el){
+ const X=y=>(y-R.lo)*px+16,end=e=>span(e)[1];
+ const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
+ const pack=(a,f)=>{const ends=[];return a.map(i=>{const[s,t]=f(i);let l=ends.findIndex(v=>v<=s);if(l<0){l=ends.length;ends.push(0)}ends[l]=t+6;return l})};
+ const nw=e=>Math.min(200,e.title.length*7+50),bw=e=>Math.max((end(e)-e.start)*px,120);
+ const nl=pack(nodes,e=>[X(e.start)-8,X(e.start)+nw(e)]),bl=pack(blks,e=>[X(e.start),X(e.start)+bw(e)]);
+ const nL=Math.max(0,...nl.map(l=>l+1)),bL=Math.max(0,...bl.map(l=>l+1)),bT=44+nL*26+(nL?12:0);
+ const W=Math.max(X(R.hi),...blks.map(e=>X(e.start)+bw(e)),...nodes.map(e=>X(e.start)+nw(e)))+24;
+ const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=64)||10000;let g="";
+ for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="vl" style="left:${X(y)}px"></i><span class="hk" style="left:${X(y)}px">${y}</span>`;
+ const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*26;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${X(e.start)+12}px;top:${t}px;width:${nw(e)-20}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
+ const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
+  return `<button class="bk${e.id===sel?" on":""}" style="left:${X(e.start)}px;top:${bT+bl[i]*70}px;width:${bw(e)}px;height:62px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
+ el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*70+16}px"><i class="hx"></i>${g}${nh}${bk}</div>`}
+function renderPanel(){
+ const p=$("#panel"),e=cur();
+ if(!e){p.hidden=true;p.innerHTML="";return}
+ const long=e.kind==="long";p.hidden=false;
+ p.innerHTML=`<div class="top2"><button class="b" data-a="close" aria-label="Close">${ic("x")}</button><span class="mut">${long?"Long-term event":"Trigger event"}</span></div>
+<input class="ttl" data-f="title" value="${esc(e.title)}" placeholder="Untitled" aria-label="Title">
+<div class="pr"><span>Kind</span><select data-f="kind"><option value="trigger"${long?"":" selected"}>Trigger event</option><option value="long"${long?" selected":""}>Long-term event</option></select></div>
+<div class="pr"><span>Type</span><select data-f="type">${TYPES.map(([id,n])=>`<option value="${id}"${e.type===id?" selected":""}>${n}</option>`).join("")}</select></div>
+<div class="pr"><span>${long?"Start year":"Year"}</span><input type="number" data-f="start" value="${e.start}"></div>
+${long?`<div class="pr"><span>End year</span><input type="number" data-f="end" value="${e.end??e.start}"></div>`:""}
+<div class="pr"><span>Countries</span><div id="cc">${chips(e)}</div></div>
+<h3>Context</h3><textarea data-f="context" placeholder="What led up to this?">${esc(e.context)}</textarea>
+<h3>Outcome</h3><textarea data-f="outcome" placeholder="What changed afterwards?">${esc(e.outcome)}</textarea>
+<button class="b danger" data-a="del">Delete event</button>`}
+function render(){renderSide();renderTL();renderPanel()}
+function renderCT(){$("#ct").innerHTML='<div class="tr th"><span>Name</span><span>Founded</span><span></span></div>'+S.countries.map(c=>`<div class="tr" data-k="${c.id}"><input data-g="name" value="${esc(c.name)}" aria-label="Country name"><input type="number" data-g="year" value="${c.year??""}" aria-label="Founded year"><button class="b" data-del="${c.id}" aria-label="Delete ${esc(c.name)}">${ic("x")}</button></div>`).join("")}
+const open=id=>{sel=id;renderTL();renderPanel()},closeP=()=>{sel=null;renderTL();renderPanel()};
+$("#tl").onclick=ev=>{const b=ev.target.closest("[data-e]");if(b)open(b.dataset.e)};
+$("#zoom").oninput=renderTL;
+document.onkeydown=ev=>{if(ev.key==="Escape"&&sel&&!document.querySelector("dialog[open]"))closeP()};
+$("#types").onclick=ev=>{const b=ev.target.closest("[data-t]");if(!b)return;off.has(b.dataset.t)?off.delete(b.dataset.t):off.add(b.dataset.t);renderSide();renderTL()};
+$("#cf").oninput=ev=>{const id=ev.target.dataset.cf;if(!id)return;ev.target.checked?onC.add(id):onC.delete(id);renderTL()};
+$("#clr").onclick=()=>{off.clear();onC.clear();renderSide();renderTL()};
+$("#ne").onclick=()=>{const last=S.events.length?Math.max(...S.events.map(e=>e.start)):0;
+ const e={id:uid(),title:"Untitled event",kind:"trigger",type:"conflict",start:last,end:last,cs:[],context:"",outcome:""};
+ S.events.push(e);off.delete("conflict");grow(e);commit();touch();renderSide();open(e.id)};
+$("#panel").oninput=ev=>{const t=ev.target,e=cur();if(!e)return;const f=t.dataset.f;
+ if(f){let v=t.value;if(t.type==="number"){if(v===""||isNaN(+v))return;v=+v}e[f]=v;
+  if(f==="kind"){if(v==="long"&&(e.end==null||e.end<e.start))e.end=e.start;grow(e);commit();renderPanel();renderTL();touch();return}
+  if(f==="start"||f==="end"){if(e.end<e.start)e.end=e.start;if(f==="start")$("#cc").innerHTML=chips(e);touch();return}}
+ else if(t.dataset.c){const a=new Set(e.cs);t.checked?a.add(t.dataset.c):a.delete(t.dataset.c);e.cs=[...a]}
+ else return;
+ touch();renderTL()};
+$("#panel").onchange=()=>{const e=cur();if(!e)return;grow(e);renderTL();commit()};
+$("#panel").onclick=ev=>{const b=ev.target.closest("[data-a]");if(!b)return;
+ if(b.dataset.a==="close")closeP();else{S.events=S.events.filter(e=>e.id!==sel);sel=null;commit();touch();render()}};
+$("#hb").onclick=()=>{renderH();$("#hd").showModal()};$("#hx").onclick=()=>$("#hd").close();
+$("#hl").onclick=ev=>{const id=ev.target.dataset.u;if(id)undo(id)};
+$("#ec").onclick=()=>{renderCT();$("#cd").showModal()};$("#cx").onclick=()=>$("#cd").close();
+$("#ca").onclick=()=>{S.countries.push({id:uid(),name:"New country",year:null});commit();touch();renderCT();render()};
+$("#ct").oninput=ev=>{const t=ev.target,c=S.countries.find(c=>c.id===t.closest("[data-k]")?.dataset.k);if(!c||!t.dataset.g)return;
+ c[t.dataset.g]=t.dataset.g==="year"?(t.value===""?null:+t.value):t.value;touch();render()};
+$("#ct").onchange=commit;
+$("#ct").onclick=ev=>{const id=ev.target.closest("[data-del]")?.dataset.del;if(!id)return;
+ S.countries=S.countries.filter(c=>c.id!==id);S.events.forEach(e=>e.cs=e.cs.filter(x=>x!==id));onC.delete(id);commit();touch();renderCT();render()};
+function imp(txt){let n=0;txt.split(/\r?\n/).forEach(ln=>{if(!ln.trim())return;
+ const p=ln.split(/\t|,/).map(s=>s.trim().replace(/^"|"$/g,"")),name=p[0];if(!name)return;
+ const y=p[1]===undefined||p[1]===""?null:+p[1];if(y!==null&&isNaN(y))return;
+ const c=S.countries.find(c=>c.name.toLowerCase()===name.toLowerCase());if(c)c.year=y;else S.countries.push({id:uid(),name,year:y});n++});
+ if(n){commit();touch();renderCT();render()}}
+$("#ci").onclick=()=>{imp($("#cp").value);$("#cp").value=""};
+$("#cfile").onchange=ev=>{const f=ev.target.files[0];if(f)f.text().then(imp);ev.target.value=""};
+$("#cdl").onclick=async()=>{try{const d=await window.claude.use("downloads"),r=S.countries.length?S.countries:[{name:"Example Kingdom",year:100}];
+ await d.save({filename:"countries.csv",data:"Name,Founded\n"+r.map(c=>`"${c.name.replace(/"/g,'""')}",${c.year??""}`).join("\n")})}catch(e){}};
+const ic=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const UI=(()=>{try{return JSON.parse(localStorage.getItem("chronicle-ui"))||{}}catch(e){return{}}})();
+let DIR=UI.dir==="x"?"x":"y";
+if(UI.theme)document.documentElement.dataset.theme=UI.theme;
+const isDark=()=>(document.documentElement.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))==="dark";
+function saveUI(){try{localStorage.setItem("chronicle-ui",JSON.stringify({theme:document.documentElement.dataset.theme,dir:DIR}))}catch(e){}}
+function applyUI(){const d=isDark();$("#tu").setAttribute("href",d?"#i-sun":"#i-moon");$("#tg").setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");$("#dy").setAttribute("aria-pressed",DIR==="y");$("#dx").setAttribute("aria-pressed",DIR==="x")}
+function setDir(d){if(d===DIR)return;DIR=d;saveUI();fit();applyUI();renderTL()}
+$("#tg").onclick=()=>{document.documentElement.dataset.theme=isDark()?"light":"dark";saveUI();applyUI()};
+$("#dy").onclick=()=>setDir("y");$("#dx").onclick=()=>setDir("x");
+function init(){norm();fit();applyUI();base=clone(S);sel=null;render();renderH()}
+(async()=>{
+ try{const t=localStorage.getItem(LS);if(t)S=JSON.parse(t)}catch(e){}
+ init();setSt("Saved in this browser");
+ try{if(window.claude){const d=await window.claude.use("db");if(d){db=d;const s=await d.doc("app/state").get();
+  if(s.exists){S=clone(s.data());init()}setSt("All changes saved")}
+  window.claude.use("downloads").then(x=>{if(x)$("#cdl").hidden=false})}}catch(e){}
+})();
+</script></body></html>
