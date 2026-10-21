@@ -86,7 +86,7 @@ function applyItems(state, items) {
       if (i >= 0) arr.splice(i, 1);
     } else if (it.f && i >= 0 && typeof it.f === "object") {
       for (const [key, pair] of Object.entries(it.f)) {
-        if (!["id", "title", "name", "kind", "type", "start", "end", "cs", "context", "outcome", "major"].includes(key)) continue;
+        if (!["id", "title", "name", "kind", "type", "start", "end", "cs", "context", "outcome", "major", "unfinished"].includes(key)) continue;
         if (Array.isArray(pair) && pair.length === 2) arr[i][key] = pair[1];
       }
     }
