@@ -27,9 +27,9 @@ aside{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:aut
 .dot.on{box-shadow:0 0 0 3px var(--ac)}
 .nd{position:absolute;left:74px;width:176px;min-height:34px;height:36px;display:flex;gap:6px;align-items:flex-start;border:0;background:none;text-align:left;border-radius:4px;padding:2px 6px;overflow:hidden}
 .nd:hover,.nd.on{background:var(--hv)}.nd b{font-weight:400;font-size:12px;line-height:15px;color:var(--mut);flex:none}.nd span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;flex:1;min-width:0;overflow:hidden;white-space:normal;overflow-wrap:anywhere;text-overflow:ellipsis;line-height:15px}
-.bk{position:absolute;width:168px;text-align:left;border:1px solid var(--ln);border-left:4px solid var(--c);border-radius:6px;background:color-mix(in srgb,var(--c) 9%,var(--bg));padding:5px 8px;overflow:hidden;display:flex;flex-direction:column;gap:2px}
+.bk{position:absolute;width:168px;text-align:left;border:1px solid var(--ln);border-left:4px solid var(--c);border-radius:6px;background:color-mix(in srgb,var(--c) 9%,var(--bg));padding:4px 7px;overflow:hidden;display:flex;flex-direction:column;gap:3px}
 .bk:hover{background:color-mix(in srgb,var(--c) 16%,var(--bg))}.bk.on{outline:2px solid var(--ac)}
-.bk b{font-size:13px;line-height:16px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;overflow:hidden;overflow-wrap:anywhere;text-overflow:ellipsis}.bk small{font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk b{font-size:13px;line-height:16px;flex:none;max-height:32px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;overflow:hidden;overflow-wrap:anywhere;text-overflow:ellipsis}.bk small{font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tag{position:relative;display:inline-block;padding:0 7px;border-radius:4px;font-size:12px;line-height:20px;background:color-mix(in srgb,var(--c) 20%,var(--bg))}
 .empty{padding:48px 0;color:var(--mut)}
 #panel{position:fixed;top:0;right:0;bottom:0;z-index:5;width:min(520px,100%);background:var(--bg);border-left:1px solid var(--ln);box-shadow:-8px 0 30px #0002;overflow:auto;padding:calc(14px + env(safe-area-inset-top,0px)) 28px calc(40px + env(safe-area-inset-bottom,0px))}
@@ -59,6 +59,17 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 .ic.sm{width:13px;height:13px;margin:0 4px;vertical-align:-2px;fill:#FFC72C;stroke:#E8A800}
 .star{position:relative;display:inline-flex;align-items:center;gap:6px;padding:5px 6px;border-radius:4px;cursor:pointer}.star:hover{background:var(--hv)}.star input{position:absolute;opacity:0;pointer-events:none}.star:has(input:checked) .ic{fill:#FFC72C;stroke:#E8A800}.star:has(input:focus-visible){outline:2px solid var(--ac)}
 #mj[aria-pressed="false"],#uf[aria-pressed="false"]{opacity:1}#mj[aria-pressed="true"],#uf[aria-pressed="true"]{background:var(--hv);font-weight:600}#mj[aria-pressed="true"] .ic{fill:#FFC72C;stroke:#E8A800}
+#uf .uf-half,#uf .uf-full{display:none}
+#uf[data-mode="show"] .uf-half{display:block;fill:var(--mut);stroke:none;opacity:.85}
+#uf[data-mode="hide"] .uf-state-icon{opacity:.42}
+#uf[data-mode="hide"] .uf-outline{stroke:var(--mut)}
+#uf[data-mode="only"] .uf-full{display:block;fill:#FFC72C;stroke:#E8A800}
+#uf[data-mode="only"] .uf-hands{stroke:var(--bg)}
+#uf[data-mode="only"] .uf-outline{stroke:#E8A800}
+.bk-meta{display:flex;align-items:center;gap:6px;min-width:0;flex:none;white-space:nowrap;overflow:hidden;line-height:17px}
+.bk-meta .bk-years{flex:none;font-size:12px;color:var(--mut);white-space:nowrap;overflow:visible}
+.bk-meta .tag{flex:none;line-height:17px;font-size:11px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ic.um{width:13px;height:13px;margin:0 3px;vertical-align:-2px;stroke:var(--mut);fill:none}
 .hk{position:absolute;top:4px;font-size:12px;color:var(--mut);transform:translateX(-50%)}
 @media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--ln)}.page{padding:16px}h1{font-size:30px}}
 </style></head><body>
@@ -72,13 +83,15 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></symbol>
 <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
 <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5-5.9-3.1-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></symbol>
+<symbol id="i-unfinished" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 6v6l4 2"/></symbol>
 </defs></svg>
 <div class="app">
 <aside>
 <button class="nav" id="hb"><svg class="ic"><use href="#i-history"/></svg>History<span class="cnt" id="hn"></span></button>
 <button class="nav" id="ec"><svg class="ic"><use href="#i-globe"/></svg>Edit countries</button>
 <button class="nav" id="mj" aria-pressed="false"><svg class="ic"><use href="#i-star"/></svg>Major events only</button>
-<button class="nav" id="uf" aria-pressed="false"><svg class="ic"><use href="#i-history"/></svg>Toggle unfinished events</button>
+<button class="nav" id="uf" aria-pressed="false" data-mode="show" aria-label="Show unfinished events">
+<svg class="ic uf-state-icon" viewBox="0 0 24 24" aria-hidden="true"><path class="uf-half" d="M12 2.5a9.5 9.5 0 0 0 0 19Z"/><circle class="uf-full" cx="12" cy="12" r="9.5"/><circle class="uf-outline" cx="12" cy="12" r="9.5"/><path class="uf-hands" d="M12 6v6l4 2"/></svg><span id="ufLabel">Show unfinished events</span></button>
 <p class="sec">Event types</p><div id="types"></div>
 <p class="sec">Countries</p><div id="cf"></div>
 <button class="nav" id="clr" style="margin-top:8px">Clear filters</button>
@@ -234,11 +247,23 @@ function undo(id){if(!canEdit())return;const r=H.find(x=>x.id===id);if(!r||r.und
 function renderH(){$("#hl").innerHTML=H.length?H.map(r=>`<div class="hr"><div><div>${esc(r.label)}</div><div class="mut">${r.t.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}${r.undone?", undone":""}</div></div>${r.undone?"":`<button class="b" data-u="${r.id}">Undo</button>`}</div>`).join(""):'<p class="mut">No changes yet this session.</p>';
  $("#hn").textContent=H.filter(r=>!r.undone).length||""}
 const chips=e=>S.countries.map(c=>`<label class="tag opt"><input type="checkbox" data-c="${c.id}" ${e.cs.includes(c.id)?"checked":""}>${esc(cn(c,e))}</label>`).join("")||'<span class="mut">No countries yet.</span>';
-function isUnfinished(e){return !String(e.context??"").trim()||!String(e.outcome??"").trim()}
+function isUnfinished(e){return e.unfinished===true}
 function renderSide(){
  $("#types").innerHTML=TYPES.map(([id,n])=>`<button class="nav" data-t="${id}" aria-pressed="${!off.has(id)}"><i class="sw" style="background:var(--c-${id})"></i>${n}</button>`).join("");
  $("#cf").innerHTML=S.countries.map(c=>`<label class="nav"><input type="checkbox" data-cf="${c.id}" ${onC.has(c.id)?"checked":""}>${esc(c.name)}</label>`).join("")||'<p class="mut" style="margin:4px 8px">No countries yet.</p>';
  updateUnfinishedUI()} 
+function categoryFits(e,width){
+ const category=String(TN[e.type]||e.type||"Other"),years=`${e.start}-${span(e)[1]}`;
+ // Approximate the rendered text width; retain the date and omit the category if tight.
+ const need=years.length*6.2+category.length*5.7+14+6+24;
+ return width>=need;
+}
+function longEventCard(e,{left,top,width,height,clippedStart,clippedEnd}){
+ const category=String(TN[e.type]||e.type||"Other"),years=`${e.start}-${span(e)[1]}`;
+ const showCategory=categoryFits(e,width);
+ const title=esc(e.title);
+ return `<button class="bk${e.id===sel?" on":""}" style="left:${left}px;top:${top}px;width:${width}px;height:${height}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start}-${span(e)[1]})"><b>${title}</b><span class="bk-meta"><small class="bk-years">${years}</small>${showCategory?`<span class="tag">${esc(category)}</span>`:""}</span></button>`;
+}
 function renderTL(){
  const px=+$("#zoom").value,el=$("#tl");let R=viewRange(S.range);
  if(!S.range||!S.events.length){el.innerHTML='<p class="empty">No events yet. Choose New event to add the first one.</p>';return}
@@ -246,7 +271,7 @@ function renderTL(){
  const end=e=>span(e)[1],start=e=>Math.max(e.start,R.lo),finish=e=>Math.min(end(e),R.hi);
  const filterR=R.lo===R.hi?R:{lo:R.lo,hi:R.hi};
  const plotR=filterR.lo===filterR.hi?{lo:filterR.lo-1,hi:filterR.hi+1}:filterR;
- const evs=S.events.filter(e=>end(e)>=filterR.lo&&e.start<=filterR.hi&&!off.has(e.type)&&(!majOnly||e.major)&&(!onC.size||e.cs.some(c=>onC.has(c)))&&(unfinishedMode!==1||isUnfinished(e))&&(unfinishedMode!==2||!isUnfinished(e))).sort((a,b)=>a.start-b.start);
+ const evs=S.events.filter(e=>end(e)>=filterR.lo&&e.start<=filterR.hi&&!off.has(e.type)&&(!majOnly||e.major)&&(!onC.size||e.cs.some(c=>onC.has(c)))&&(unfinishedMode===0||(unfinishedMode===1&&!isUnfinished(e))||(unfinishedMode===2&&isUnfinished(e)))).sort((a,b)=>a.start-b.start);
  if(!evs.length){el.innerHTML='<p class="empty">No events match these filters.</p>';return}
  if(DIR==="x")return renderX(evs,px,plotR,el);
  const space=timelineSpace(),Y=y=>(y-plotR.lo)*px+space.height/6;
@@ -266,8 +291,7 @@ function renderTL(){
  const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=44)||10000;let g="";
  for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="gl" style="top:${Y(y)}px"></i><span class="tk" style="top:${Y(y)}px">${y}</span>`;
  const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"";return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="top:${Y(e.start)}px" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="top:${ny[i]}px;width:${labelW}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
- const bk=blks.map((e,i)=>{
-  return `<button class="bk${e.id===sel?" on":""}" style="left:${blockStart+bl[i]*lanePitch}px;top:${Y(start(e))}px;width:${blockW}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start}-${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start}-${end(e)}</small></span></button>`}).join("");
+ const bk=blks.map((e,i)=>longEventCard(e,{left:blockStart+bl[i]*lanePitch,top:Y(start(e)),width:blockW,height:bh(e),clippedStart:start(e),clippedEnd:finish(e)})).join("");
  el.innerHTML=`<div class="cv" style="width:${W}px;height:${HT}px"><i class="ax"></i>${g}${nh}${bk}</div>`;stars()
 }
 function renderX(evs,px,R,el){
@@ -295,8 +319,7 @@ function renderX(evs,px,R,el){
  const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=64)||10000;let g="";
  for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="vl" style="left:${X(y)}px"></i><span class="hk" style="left:${X(y)}px">${y}</span>`;
  const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*nodePitch;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${labelLeft(e)}px;top:${t}px;width:${labelWidth(e)}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
- const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
-  return `<button class="bk${e.id===sel?" on":""}" style="left:${X(start(e))}px;top:${bT+bl[i]*blockPitch}px;width:${bw(e)}px;height:68px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start}-${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start}-${end(e)}</small></span></button>`}).join("");
+ const bk=blks.map((e,i)=>longEventCard(e,{left:X(start(e)),top:bT+bl[i]*blockPitch,width:bw(e),height:68,clippedStart:start(e),clippedEnd:finish(e)})).join("");
  const axisLine=autoFit?`<i class="hx" style="left:${plotLeft}px;right:${space.width-plotRight}px"></i>`:'<i class="hx"></i>';
  el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*blockPitch+16}px">${axisLine}${g}${nh}${bk}</div>`;stars()
 }
@@ -308,7 +331,7 @@ function renderPanel(){
   const names=(e.cs||[]).map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>c.name).join(", ");
   p.innerHTML=`<div class="top2"><button class="b" data-a="close" aria-label="Close">${ic("x")}</button><span class="mut">${long?"Long-term event":"Trigger event"}</span></div>
   <div class="viewer-note">Guest view · read only</div><h2 style="font-size:26px;line-height:1.2;margin:16px 0 18px;overflow-wrap:anywhere">${esc(e.title)}</h2>
-  <div class="pr"><span>Type</span><div>${esc(TN[e.type]||e.type||"Other")}${e.major?' · Major event':''}</div></div>
+  <div class="pr"><span>Type</span><div>${esc(TN[e.type]||e.type||"Other")}${e.major?' · Major event':''}${e.unfinished?' · Unfinished':''}</div></div>
   <div class="pr"><span>${long?"Years":"Year"}</span><div>${e.start}${long&&e.end!==e.start?`–${e.end}`:""}</div></div>
   <div class="pr"><span>Countries</span><div>${esc(names)||"No countries listed"}</div></div>
   <h3>Context</h3><div class="readonlyText">${esc(e.context)||'<span class="mut">No context provided.</span>'}</div>
@@ -320,6 +343,7 @@ function renderPanel(){
 <div class="pr"><span>Kind</span><select data-f="kind"><option value="trigger"${long?"":" selected"}>Trigger event</option><option value="long"${long?" selected":""}>Long-term event</option></select></div>
 <div class="pr"><span>Type</span><select data-f="type">${TYPES.map(([id,n])=>`<option value="${id}"${e.type===id?" selected":""}>${n}</option>`).join("")}</select></div>
 <div class="pr"><span>Major</span><label class="star"><input type="checkbox" data-m${e.major?" checked":""}>${ic("star")}<span>Mark as major</span></label></div>
+<div class="pr"><span>Unfinished</span><label class="star"><input type="checkbox" data-u${e.unfinished===true?" checked":""}>${ic("unfinished")}<span>Mark as unfinished</span></label></div>
 <div class="pr"><span>${long?"Start year":"Year"}</span><input type="number" data-f="start" value="${e.start}"></div>
 ${long?`<div class="pr"><span>End year</span><input type="number" data-f="end" value="${e.end??e.start}"></div>`:""}
 <div class="pr"><span>Countries</span><div id="cc">${chips(e)}</div></div>
@@ -337,15 +361,15 @@ $("#types").onclick=ev=>{const b=ev.target.closest("[data-t]");if(!b)return;off.
 $("#cf").oninput=ev=>{const id=ev.target.dataset.cf;if(!id)return;ev.target.checked?onC.add(id):onC.delete(id);renderTL()};
 $("#clr").onclick=()=>{off.clear();onC.clear();majOnly=false;unfinishedMode=0;$("#mj").setAttribute("aria-pressed","false");saveUI();renderSide();renderTL()};
 $("#mj").onclick=()=>{majOnly=!majOnly;$("#mj").setAttribute("aria-pressed",majOnly);renderTL()};
-$("#uf").onclick=()=>{unfinishedMode=(unfinishedMode+1)%4;saveUI();updateUnfinishedUI();renderTL()};
+$("#uf").onclick=()=>{unfinishedMode=(unfinishedMode+1)%3;saveUI();updateUnfinishedUI();renderTL()};
 $("#ne").onclick=()=>{if(!canEdit())return;const last=S.events.length?Math.max(...S.events.map(e=>e.start)):0;
- const e={id:uid(),title:"Untitled event",kind:"trigger",type:"conflict",start:last,end:last,cs:[],context:"",outcome:""};
+ const e={id:uid(),title:"Untitled event",kind:"trigger",type:"conflict",start:last,end:last,cs:[],context:"",outcome:"",major:false,unfinished:false};
  S.events.push(e);off.delete("conflict");grow(e);commit();touch();renderSide();open(e.id)};
 $("#panel").oninput=ev=>{if(!canEdit())return;const t=ev.target,e=cur();if(!e)return;const f=t.dataset.f;
  if(f){let v=t.value;if(t.type==="number"){if(v===""||isNaN(+v))return;v=+v}e[f]=v;
   if(f==="kind"){if(v==="long"&&(e.end==null||e.end<e.start))e.end=e.start;grow(e);commit();renderPanel();renderTL();touch();return}
   if(f==="start"||f==="end"){if(e.end<e.start)e.end=e.start;if(f==="start")$("#cc").innerHTML=chips(e);touch();return}}
- else if(t.dataset.c){const a=new Set(e.cs);t.checked?a.add(t.dataset.c):a.delete(t.dataset.c);e.cs=[...a]} else if("m" in t.dataset)e.major=t.checked;
+ else if(t.dataset.c){const a=new Set(e.cs);t.checked?a.add(t.dataset.c):a.delete(t.dataset.c);e.cs=[...a]} else if("m" in t.dataset)e.major=t.checked; else if("u" in t.dataset)e.unfinished=t.checked;
  else return;
  touch();renderTL()};
 $("#panel").onchange=()=>{if(!canEdit())return;const e=cur();if(!e)return;grow(e);renderTL();commit()};
@@ -371,14 +395,14 @@ $("#cdl").onclick=()=>{if(!canEdit())return;const r=S.countries.length?S.countri
  a.href=URL.createObjectURL(new Blob(["Name\n"+r.map(c=>`"${c.name.replace(/"/g,'""')}"`).join("\n")],{type:"text/csv"}));a.download="countries.csv";a.click()};
 const ic=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 let majOnly=false;
-function stars(){document.querySelectorAll("#tl .nd,#tl .bk").forEach(b=>{const e=S.events.find(x=>x.id===b.dataset.e);if(e&&e.major)b.querySelector("b").insertAdjacentHTML(b.classList.contains("bk")?"afterbegin":"beforeend",ic("star").replace('class="ic"','class="ic sm"'))})}
+function stars(){document.querySelectorAll("#tl .nd,#tl .bk").forEach(b=>{const e=S.events.find(x=>x.id===b.dataset.e);if(!e)return;const title=b.querySelector("b");if(!title)return;if(e.major)title.insertAdjacentHTML(b.classList.contains("bk")?"afterbegin":"beforeend",ic("star").replace('class="ic"','class="ic sm"'));if(e.unfinished===true)title.insertAdjacentHTML(b.classList.contains("bk")?"afterbegin":"beforeend",ic("unfinished").replace('class="ic"','class="ic um"'))})}
 const UI=(()=>{try{return JSON.parse(localStorage.getItem("chronicle-ui"))||{}}catch(e){return{}}})();
 let DIR=UI.dir==="x"?"x":"y";
 const savedYear=v=>v===null||v===undefined||v===""?null:(Number.isSafeInteger(Number(v))?Number(v):null);
 let yearLo=savedYear(UI.yearLo),yearHi=savedYear(UI.yearHi);
-// Modes: 0 = neutral/show all, 1 = unfinished only, 2 = hide unfinished, 3 = explicitly show all.
-let unfinishedMode=Number.isInteger(UI.unfinishedMode)&&UI.unfinishedMode>=0&&UI.unfinishedMode<=3?UI.unfinishedMode:0;
-const unfinishedLabels=["Toggle unfinished events","Unfinished events only","Hide unfinished events","Show unfinished events"];
+// Modes: 0 = show all (including unfinished), 1 = hide tagged unfinished events, 2 = only tagged unfinished events.
+let unfinishedMode=Number.isInteger(UI.unfinishedMode)&&UI.unfinishedMode>=0&&UI.unfinishedMode<=2?UI.unfinishedMode:0;
+const unfinishedLabels=["Show unfinished events","Hide unfinished events","Only unfinished events"];
 if(UI.theme)document.documentElement.dataset.theme=UI.theme;
 const isDark=()=>(document.documentElement.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))==="dark";
 function viewRange(R){
@@ -389,7 +413,7 @@ function viewRange(R){
  return lo<=hi?{lo,hi}:null
 }
 function saveUI(){try{localStorage.setItem("chronicle-ui",JSON.stringify({theme:document.documentElement.dataset.theme,dir:DIR,yearLo,yearHi,unfinishedMode}))}catch(e){}}
-function updateUnfinishedUI(){const b=$("#uf");b.textContent=unfinishedLabels[unfinishedMode];b.setAttribute("aria-pressed",String(unfinishedMode!==0));b.setAttribute("aria-label",unfinishedLabels[unfinishedMode])}
+function updateUnfinishedUI(){const b=$("#uf");b.dataset.mode=["show","hide","only"][unfinishedMode];$("#ufLabel").textContent=unfinishedLabels[unfinishedMode];b.setAttribute("aria-pressed",String(unfinishedMode!==0));b.setAttribute("aria-label",unfinishedLabels[unfinishedMode]);}
 function applyUI(){const d=isDark();$("#tu").setAttribute("href",d?"#i-sun":"#i-moon");$("#tg").setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");$("#dy").setAttribute("aria-pressed",DIR==="y");$("#dx").setAttribute("aria-pressed",DIR==="x")}
 function updateAuthUI(){
  const editable=canEdit();
@@ -413,7 +437,7 @@ $("#tg").onclick=()=>{document.documentElement.dataset.theme=isDark()?"light":"d
 $("#dy").onclick=()=>setDir("y");$("#dx").onclick=()=>setDir("x");
 let resizeTimer=null;
 window.addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{fit();renderTL()},100)});
-function init(){norm();fit();applyUI();updateAuthUI();base=clone(S);sel=null;render();renderH()}
+function init(){norm();fit();applyUI();updateUnfinishedUI();updateAuthUI();base=clone(S);sel=null;render();renderH()}
 (async()=>{
  if(!LIVE){
   try{const t=localStorage.getItem(LS);if(t)S=JSON.parse(t)}catch(e){}
