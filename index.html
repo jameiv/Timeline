@@ -27,7 +27,7 @@ aside{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:aut
 .dot.on{box-shadow:0 0 0 3px var(--ac)}
 .nd{position:absolute;left:74px;width:176px;min-height:34px;height:36px;display:flex;gap:6px;align-items:flex-start;border:0;background:none;text-align:left;border-radius:4px;padding:2px 6px;overflow:hidden}
 .nd:hover,.nd.on{background:var(--hv)}.nd b{font-weight:400;font-size:12px;line-height:15px;color:var(--mut);flex:none}.nd span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;flex:1;min-width:0;overflow:hidden;white-space:normal;overflow-wrap:anywhere;text-overflow:ellipsis;line-height:15px}
-.bk{position:absolute;width:168px;text-align:left;border:1px solid var(--ln);border-left:4px solid var(--c);border-radius:6px;background:color-mix(in srgb,var(--c) 9%,var(--bg));padding:6px 8px;overflow:hidden;display:flex;flex-direction:column;gap:3px}
+.bk{position:absolute;width:168px;text-align:left;border:1px solid var(--ln);border-left:4px solid var(--c);border-radius:6px;background:color-mix(in srgb,var(--c) 9%,var(--bg));padding:5px 8px;overflow:hidden;display:flex;flex-direction:column;gap:2px}
 .bk:hover{background:color-mix(in srgb,var(--c) 16%,var(--bg))}.bk.on{outline:2px solid var(--ac)}
 .bk b{font-size:13px;line-height:16px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;overflow:hidden;overflow-wrap:anywhere;text-overflow:ellipsis}.bk small{font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tag{position:relative;display:inline-block;padding:0 7px;border-radius:4px;font-size:12px;line-height:20px;background:color-mix(in srgb,var(--c) 20%,var(--bg))}
@@ -58,7 +58,7 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 .hx{position:absolute;left:0;right:0;top:26px;height:2px;background:var(--ln)}.vl{position:absolute;top:26px;bottom:0;width:1px;background:var(--ln);opacity:.5}
 .ic.sm{width:13px;height:13px;margin:0 4px;vertical-align:-2px;fill:#FFC72C;stroke:#E8A800}
 .star{position:relative;display:inline-flex;align-items:center;gap:6px;padding:5px 6px;border-radius:4px;cursor:pointer}.star:hover{background:var(--hv)}.star input{position:absolute;opacity:0;pointer-events:none}.star:has(input:checked) .ic{fill:#FFC72C;stroke:#E8A800}.star:has(input:focus-visible){outline:2px solid var(--ac)}
-#mj[aria-pressed="false"]{opacity:1}#mj[aria-pressed="true"]{background:var(--hv);font-weight:600}#mj[aria-pressed="true"] .ic{fill:#FFC72C;stroke:#E8A800}
+#mj[aria-pressed="false"],#uf[aria-pressed="false"]{opacity:1}#mj[aria-pressed="true"],#uf[aria-pressed="true"]{background:var(--hv);font-weight:600}#mj[aria-pressed="true"] .ic{fill:#FFC72C;stroke:#E8A800}
 .hk{position:absolute;top:4px;font-size:12px;color:var(--mut);transform:translateX(-50%)}
 @media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--ln)}.page{padding:16px}h1{font-size:30px}}
 </style></head><body>
@@ -78,6 +78,7 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 <button class="nav" id="hb"><svg class="ic"><use href="#i-history"/></svg>History<span class="cnt" id="hn"></span></button>
 <button class="nav" id="ec"><svg class="ic"><use href="#i-globe"/></svg>Edit countries</button>
 <button class="nav" id="mj" aria-pressed="false"><svg class="ic"><use href="#i-star"/></svg>Major events only</button>
+<button class="nav" id="uf" aria-pressed="false"><svg class="ic"><use href="#i-history"/></svg>Toggle unfinished events</button>
 <p class="sec">Event types</p><div id="types"></div>
 <p class="sec">Countries</p><div id="cf"></div>
 <button class="nav" id="clr" style="margin-top:8px">Clear filters</button>
@@ -85,7 +86,7 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 <main>
 <div class="top"><span class="sp" id="st" role="status"></span><button class="b" id="lo" hidden>Log out</button><button class="ib" id="tg" aria-label="Switch theme"><svg class="ic"><use id="tu" href="#i-moon"/></svg></button><button class="pri" id="ne"><svg class="ic"><use href="#i-plus"/></svg>New event</button></div>
 <div class="page"><h1>Eurana timeline</h1><div class="mut">Filter by type and country in the sidebar. Open any event to edit its context and outcome.</div>
-<div class="tools"><div class="seg" role="group" aria-label="Timeline direction"><button id="dy" aria-pressed="true"><svg class="ic"><use href="#i-down"/></svg>Scroll down</button><button id="dx" aria-pressed="false"><svg class="ic"><use href="#i-right"/></svg>Scroll across</button></div><label>Zoom <input type="range" id="zoom" min="0.25" max="40" step="0.25" value="12"></label><label class="yr">Years <input type="number" id="yearFrom" placeholder="From" aria-label="First year in range" step="1"><span class="yr-sep">–</span><input type="number" id="yearTo" placeholder="To" aria-label="Last year in range" step="1"></label><button class="b" id="clearYears" type="button">Reset years</button><span id="yearError" hidden>Enter a valid year range, with the first year no later than the last.</span></div>
+<div class="tools"><div class="seg" role="group" aria-label="Timeline direction"><button id="dy" aria-pressed="true"><svg class="ic"><use href="#i-down"/></svg>Scroll down</button><button id="dx" aria-pressed="false"><svg class="ic"><use href="#i-right"/></svg>Scroll across</button></div><label>Zoom <input type="range" id="zoom" min="0.25" max="40" step="any" value="12"></label><label class="yr">Years <input type="number" id="yearFrom" placeholder="From" aria-label="First year in range" step="1"><span class="yr-sep">–</span><input type="number" id="yearTo" placeholder="To" aria-label="Last year in range" step="1"></label><button class="b" id="clearYears" type="button">Reset years</button><span id="yearError" hidden>Enter a valid year range, with the first year no later than the last.</span></div>
 <div id="tl"></div></div>
 </main></div>
 <section id="panel" hidden></section>
@@ -134,18 +135,23 @@ function timelineSpace(){
  // Estimate the space available below the page heading and timeline controls.
  // The cap makes the scale stable even after the user scrolls the page.
  const reservedTop=Math.min(Math.max(220,docTop),vh*.60);
- const width=Math.max(320,tl.clientWidth||window.innerWidth-280);
+ const width=Math.max(1,tl.clientWidth||window.innerWidth-280);
  const height=Math.max(320,vh-reservedTop-28);
  return {width,height};
 }
 function fit(){
  const R=viewRange(S.range);if(!R)return;
- const years=Math.max(1,R.hi-R.lo),space=timelineSpace();
- // Fit the complete year span to the usable screen width/height, leaving a small
- // margin so the timeline doesn't feel pressed against the edges of the viewport.
- const available=DIR==="x"?space.width*.92-32:space.height*.90;
- const z=Math.max(.25,Math.min(40,available/years));
- $("#zoom").value=String(Math.round(z*4)/4)
+ const years=R.hi===R.lo?2:Math.max(1,R.hi-R.lo),space=timelineSpace();
+ // Reserve exactly one-sixth of the available timeline axis at each end.
+ // Scroll-across uses left/right margins; scroll-down uses top/bottom margins.
+ const axisSize=DIR==="x"?space.width:space.height;
+ const z=(axisSize*2/3)/years;
+ const slider=$("#zoom");
+ // Keep the auto-fitted value precise, while leaving the slider usable for manual zooming.
+ slider.min=String(Math.min(.25,z/3));
+ slider.max=String(Math.max(40,z*3));
+ slider.dataset.fitScale=String(z);
+ slider.value=String(z)
 }
 function touch(){if(!canEdit())return;setSt("Saving…");clearTimeout(saveT);saveT=setTimeout(flush,500)}
 const API="https://eurana-api.maniacgaming2007.workers.dev",LIVE=API.startsWith("https://")&&!API.includes("REPLACE-WITH-YOUR-WORKER");
@@ -228,21 +234,26 @@ function undo(id){if(!canEdit())return;const r=H.find(x=>x.id===id);if(!r||r.und
 function renderH(){$("#hl").innerHTML=H.length?H.map(r=>`<div class="hr"><div><div>${esc(r.label)}</div><div class="mut">${r.t.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}${r.undone?", undone":""}</div></div>${r.undone?"":`<button class="b" data-u="${r.id}">Undo</button>`}</div>`).join(""):'<p class="mut">No changes yet this session.</p>';
  $("#hn").textContent=H.filter(r=>!r.undone).length||""}
 const chips=e=>S.countries.map(c=>`<label class="tag opt"><input type="checkbox" data-c="${c.id}" ${e.cs.includes(c.id)?"checked":""}>${esc(cn(c,e))}</label>`).join("")||'<span class="mut">No countries yet.</span>';
+function isUnfinished(e){return !String(e.context??"").trim()||!String(e.outcome??"").trim()}
 function renderSide(){
  $("#types").innerHTML=TYPES.map(([id,n])=>`<button class="nav" data-t="${id}" aria-pressed="${!off.has(id)}"><i class="sw" style="background:var(--c-${id})"></i>${n}</button>`).join("");
- $("#cf").innerHTML=S.countries.map(c=>`<label class="nav"><input type="checkbox" data-cf="${c.id}" ${onC.has(c.id)?"checked":""}>${esc(c.name)}</label>`).join("")||'<p class="mut" style="margin:4px 8px">No countries yet.</p>'}
+ $("#cf").innerHTML=S.countries.map(c=>`<label class="nav"><input type="checkbox" data-cf="${c.id}" ${onC.has(c.id)?"checked":""}>${esc(c.name)}</label>`).join("")||'<p class="mut" style="margin:4px 8px">No countries yet.</p>';
+ updateUnfinishedUI()} 
 function renderTL(){
- const px=+$("#zoom").value,el=$("#tl"),R=viewRange(S.range);
+ const px=+$("#zoom").value,el=$("#tl");let R=viewRange(S.range);
  if(!S.range||!S.events.length){el.innerHTML='<p class="empty">No events yet. Choose New event to add the first one.</p>';return}
  if(!R){el.innerHTML='<p class="empty">Enter a valid year range.</p>';return}
  const end=e=>span(e)[1],start=e=>Math.max(e.start,R.lo),finish=e=>Math.min(end(e),R.hi);
- const evs=S.events.filter(e=>end(e)>=R.lo&&e.start<=R.hi&&!off.has(e.type)&&(!majOnly||e.major)&&(!onC.size||e.cs.some(c=>onC.has(c)))).sort((a,b)=>a.start-b.start);
+ const filterR=R.lo===R.hi?R:{lo:R.lo,hi:R.hi};
+ const plotR=filterR.lo===filterR.hi?{lo:filterR.lo-1,hi:filterR.hi+1}:filterR;
+ const evs=S.events.filter(e=>end(e)>=filterR.lo&&e.start<=filterR.hi&&!off.has(e.type)&&(!majOnly||e.major)&&(!onC.size||e.cs.some(c=>onC.has(c)))&&(unfinishedMode!==1||isUnfinished(e))&&(unfinishedMode!==2||!isUnfinished(e))).sort((a,b)=>a.start-b.start);
  if(!evs.length){el.innerHTML='<p class="empty">No events match these filters.</p>';return}
- if(DIR==="x")return renderX(evs,px,R,el);
- const space=timelineSpace(),Y=y=>(y-R.lo)*px+10;
+ if(DIR==="x")return renderX(evs,px,plotR,el);
+ const space=timelineSpace(),Y=y=>(y-plotR.lo)*px+space.height/6;
+ R=plotR;
  const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
  let prev=-99;const ny=nodes.map(e=>{const y=Math.max(Y(e.start)-11,prev+38);prev=y;return y});
- const bh=e=>Math.max((finish(e)-start(e))*px,90),ends=[];
+ const bh=e=>Math.max((finish(e)-start(e))*px,68),ends=[];
  const bl=blks.map(e=>{const sy=Y(start(e));let l=ends.findIndex(v=>v<=sy);if(l<0){l=ends.length;ends.push(0)}ends[l]=sy+bh(e)+6;return l});
  // Scale the title column and long-event lanes to the actual timeline viewport.
  // Lane widths grow on wide screens but stay scrollable on narrow screens.
@@ -255,16 +266,25 @@ function renderTL(){
  const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=44)||10000;let g="";
  for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="gl" style="top:${Y(y)}px"></i><span class="tk" style="top:${Y(y)}px">${y}</span>`;
  const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"";return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="top:${Y(e.start)}px" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="top:${ny[i]}px;width:${labelW}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
- const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
-  return `<button class="bk${e.id===sel?" on":""}" style="left:${blockStart+bl[i]*lanePitch}px;top:${Y(start(e))}px;width:${blockW}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
+ const bk=blks.map((e,i)=>{
+  return `<button class="bk${e.id===sel?" on":""}" style="left:${blockStart+bl[i]*lanePitch}px;top:${Y(start(e))}px;width:${blockW}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start}-${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start}-${end(e)}</small></span></button>`}).join("");
  el.innerHTML=`<div class="cv" style="width:${W}px;height:${HT}px"><i class="ax"></i>${g}${nh}${bk}</div>`;stars()
 }
 function renderX(evs,px,R,el){
- const space=timelineSpace(),X=y=>(y-R.lo)*px+16,end=e=>span(e)[1],start=e=>Math.max(e.start,R.lo),finish=e=>Math.min(end(e),R.hi);
+ const space=timelineSpace(),plotLeft=space.width/6,plotRight=space.width*5/6,plotWidth=plotRight-plotLeft;
+ const X=y=>plotLeft+(y-R.lo)*px,end=e=>span(e)[1],start=e=>Math.max(e.start,R.lo),finish=e=>Math.min(end(e),R.hi);
  const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
  const pack=(a,f)=>{const ends=[];return a.map(i=>{const[s,t]=f(i);let l=ends.findIndex(v=>v<=s);if(l<0){l=ends.length;ends.push(0)}ends[l]=t+6;return l})};
- const nw=e=>Math.min(220,Math.max(130,e.title.length*6.5+48)),bw=e=>Math.max((finish(e)-start(e))*px,120);
- const nl=pack(nodes,e=>[X(e.start)-8,X(e.start)+nw(e)]),bl=pack(blks,e=>[X(start(e)),X(start(e))+bw(e)]);
+ const nw=e=>Math.max(48,Math.min(220,Math.max(130,e.title.length*6.5+48),plotWidth-24));
+ const labelWidth=e=>Math.max(40,nw(e)-20);
+ const autoFit=Math.abs(px-(+$("#zoom").dataset.fitScale))<1e-6;
+ const labelLeft=e=>{const x=X(e.start),w=labelWidth(e);if(!autoFit)return x+12;return x+12+w<=plotRight?x+12:Math.max(plotLeft,x-w-12)};
+ const bw=e=>{
+  const desired=Math.max((finish(e)-start(e))*px,120);
+  // During auto-fit, keep event cards inside the central two-thirds plot area.
+  return autoFit?Math.max(1,Math.min(desired,plotRight-X(start(e)))):desired
+ };
+ const nl=pack(nodes,e=>{const x=X(e.start),l=labelLeft(e),w=labelWidth(e);return [Math.min(x-8,l),Math.max(x+8,l+w)]}),bl=pack(blks,e=>[X(start(e)),X(start(e))+bw(e)]);
  const nL=Math.max(0,...nl.map(l=>l+1)),bL=Math.max(0,...bl.map(l=>l+1));
  // Give rows and long-event cards more breathing room when the screen is taller.
  const rows=Math.max(1,nL+bL);
@@ -274,10 +294,11 @@ function renderX(evs,px,R,el){
  const W=Math.max(space.width,Math.max(X(R.hi),...blks.map(e=>X(start(e))+bw(e)),...nodes.map(e=>X(e.start)+nw(e)))+24);
  const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=64)||10000;let g="";
  for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="vl" style="left:${X(y)}px"></i><span class="hk" style="left:${X(y)}px">${y}</span>`;
- const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*nodePitch;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${X(e.start)+12}px;top:${t}px;width:${Math.max(112,nw(e)-20)}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
+ const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*nodePitch;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${labelLeft(e)}px;top:${t}px;width:${labelWidth(e)}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
  const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
-  return `<button class="bk${e.id===sel?" on":""}" style="left:${X(start(e))}px;top:${bT+bl[i]*blockPitch}px;width:${bw(e)}px;height:90px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
- el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*blockPitch+16}px"><i class="hx"></i>${g}${nh}${bk}</div>`;stars()
+  return `<button class="bk${e.id===sel?" on":""}" style="left:${X(start(e))}px;top:${bT+bl[i]*blockPitch}px;width:${bw(e)}px;height:68px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start}-${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start}-${end(e)}</small></span></button>`}).join("");
+ const axisLine=autoFit?`<i class="hx" style="left:${plotLeft}px;right:${space.width-plotRight}px"></i>`:'<i class="hx"></i>';
+ el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*blockPitch+16}px">${axisLine}${g}${nh}${bk}</div>`;stars()
 }
 function renderPanel(){
  const p=$("#panel"),e=cur();
@@ -314,8 +335,9 @@ $("#zoom").oninput=renderTL;
 document.onkeydown=ev=>{if(ev.key==="Escape"&&sel&&!document.querySelector("dialog[open]"))closeP()};
 $("#types").onclick=ev=>{const b=ev.target.closest("[data-t]");if(!b)return;off.has(b.dataset.t)?off.delete(b.dataset.t):off.add(b.dataset.t);renderSide();renderTL()};
 $("#cf").oninput=ev=>{const id=ev.target.dataset.cf;if(!id)return;ev.target.checked?onC.add(id):onC.delete(id);renderTL()};
-$("#clr").onclick=()=>{off.clear();onC.clear();majOnly=false;$("#mj").setAttribute("aria-pressed","false");renderSide();renderTL()};
+$("#clr").onclick=()=>{off.clear();onC.clear();majOnly=false;unfinishedMode=0;$("#mj").setAttribute("aria-pressed","false");saveUI();renderSide();renderTL()};
 $("#mj").onclick=()=>{majOnly=!majOnly;$("#mj").setAttribute("aria-pressed",majOnly);renderTL()};
+$("#uf").onclick=()=>{unfinishedMode=(unfinishedMode+1)%4;saveUI();updateUnfinishedUI();renderTL()};
 $("#ne").onclick=()=>{if(!canEdit())return;const last=S.events.length?Math.max(...S.events.map(e=>e.start)):0;
  const e={id:uid(),title:"Untitled event",kind:"trigger",type:"conflict",start:last,end:last,cs:[],context:"",outcome:""};
  S.events.push(e);off.delete("conflict");grow(e);commit();touch();renderSide();open(e.id)};
@@ -354,6 +376,9 @@ const UI=(()=>{try{return JSON.parse(localStorage.getItem("chronicle-ui"))||{}}c
 let DIR=UI.dir==="x"?"x":"y";
 const savedYear=v=>v===null||v===undefined||v===""?null:(Number.isSafeInteger(Number(v))?Number(v):null);
 let yearLo=savedYear(UI.yearLo),yearHi=savedYear(UI.yearHi);
+// Modes: 0 = neutral/show all, 1 = unfinished only, 2 = hide unfinished, 3 = explicitly show all.
+let unfinishedMode=Number.isInteger(UI.unfinishedMode)&&UI.unfinishedMode>=0&&UI.unfinishedMode<=3?UI.unfinishedMode:0;
+const unfinishedLabels=["Toggle unfinished events","Unfinished events only","Hide unfinished events","Show unfinished events"];
 if(UI.theme)document.documentElement.dataset.theme=UI.theme;
 const isDark=()=>(document.documentElement.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))==="dark";
 function viewRange(R){
@@ -363,7 +388,8 @@ function viewRange(R){
  if(yearHi!==null&&yearLo===null&&hi<lo)lo=hi;
  return lo<=hi?{lo,hi}:null
 }
-function saveUI(){try{localStorage.setItem("chronicle-ui",JSON.stringify({theme:document.documentElement.dataset.theme,dir:DIR,yearLo,yearHi}))}catch(e){}}
+function saveUI(){try{localStorage.setItem("chronicle-ui",JSON.stringify({theme:document.documentElement.dataset.theme,dir:DIR,yearLo,yearHi,unfinishedMode}))}catch(e){}}
+function updateUnfinishedUI(){const b=$("#uf");b.textContent=unfinishedLabels[unfinishedMode];b.setAttribute("aria-pressed",String(unfinishedMode!==0));b.setAttribute("aria-label",unfinishedLabels[unfinishedMode])}
 function applyUI(){const d=isDark();$("#tu").setAttribute("href",d?"#i-sun":"#i-moon");$("#tg").setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");$("#dy").setAttribute("aria-pressed",DIR==="y");$("#dx").setAttribute("aria-pressed",DIR==="x")}
 function updateAuthUI(){
  const editable=canEdit();
