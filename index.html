@@ -128,12 +128,22 @@ const cn=c=>c.name;
 const span=e=>[e.start,e.kind==="long"?Math.max(e.end??e.start,e.start):e.start];
 function grow(e){const[a,b]=span(e),R=S.range;if(!R)S.range={lo:a-5,hi:b+5};else{if(a<R.lo)R.lo=a-5;if(b>R.hi)R.hi=b+5}}
 function norm(){S.countries.forEach(c=>delete c.year);S.events.forEach(e=>{e.type={ideology:"geopolitical",disaster:"environment",diplomatic:"geopolitical"}[e.type]||e.type});if(!S.range&&S.events.length){const s=S.events.map(span);S.range={lo:Math.min(...s.map(x=>x[0]))-5,hi:Math.max(...s.map(x=>x[1]))+5}}}
+function timelineSpace(){
+ const tl=$("#tl"),rect=tl.getBoundingClientRect(),vh=window.innerHeight||document.documentElement.clientHeight||800;
+ const docTop=Math.max(0,rect.top+window.scrollY);
+ // Estimate the space available below the page heading and timeline controls.
+ // The cap makes the scale stable even after the user scrolls the page.
+ const reservedTop=Math.min(Math.max(220,docTop),vh*.60);
+ const width=Math.max(320,tl.clientWidth||window.innerWidth-280);
+ const height=Math.max(320,vh-reservedTop-28);
+ return {width,height};
+}
 function fit(){
  const R=viewRange(S.range);if(!R)return;
- const years=Math.max(1,R.hi-R.lo),tl=$("#tl"),page=$(".page");
- const available=DIR==="x"
-  ?Math.max(280,(tl.clientWidth||page.clientWidth||window.innerWidth-260)-96)
-  :Math.max(280,window.innerHeight-300);
+ const years=Math.max(1,R.hi-R.lo),space=timelineSpace();
+ // Fit the complete year span to the usable screen width/height, leaving a small
+ // margin so the timeline doesn't feel pressed against the edges of the viewport.
+ const available=DIR==="x"?space.width*.92-32:space.height*.90;
  const z=Math.max(.25,Math.min(40,available/years));
  $("#zoom").value=String(Math.round(z*4)/4)
 }
@@ -229,33 +239,45 @@ function renderTL(){
  const evs=S.events.filter(e=>end(e)>=R.lo&&e.start<=R.hi&&!off.has(e.type)&&(!majOnly||e.major)&&(!onC.size||e.cs.some(c=>onC.has(c)))).sort((a,b)=>a.start-b.start);
  if(!evs.length){el.innerHTML='<p class="empty">No events match these filters.</p>';return}
  if(DIR==="x")return renderX(evs,px,R,el);
- const Y=y=>(y-R.lo)*px+10;
+ const space=timelineSpace(),Y=y=>(y-R.lo)*px+10;
  const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
  let prev=-99;const ny=nodes.map(e=>{const y=Math.max(Y(e.start)-11,prev+38);prev=y;return y});
  const bh=e=>Math.max((finish(e)-start(e))*px,90),ends=[];
  const bl=blks.map(e=>{const sy=Y(start(e));let l=ends.findIndex(v=>v<=sy);if(l<0){l=ends.length;ends.push(0)}ends[l]=sy+bh(e)+6;return l});
- const HT=Math.max(Y(R.hi)+10,prev+42,...blks.map(e=>Y(start(e))+bh(e)+10)),W=264+Math.max(1,ends.length)*176;
+ // Scale the title column and long-event lanes to the actual timeline viewport.
+ // Lane widths grow on wide screens but stay scrollable on narrow screens.
+ const labelW=Math.round(Math.min(340,Math.max(176,space.width*.28)));
+ const blockStart=labelW+88,laneCount=Math.max(1,ends.length);
+ const lanePitch=Math.max(176,Math.min(440,Math.floor((space.width-blockStart-12)/laneCount)));
+ const blockW=lanePitch-8;
+ const HT=Math.max(Y(R.hi)+10,prev+42,...blks.map(e=>Y(start(e))+bh(e)+10));
+ const W=Math.max(space.width,blockStart+laneCount*lanePitch);
  const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=44)||10000;let g="";
  for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="gl" style="top:${Y(y)}px"></i><span class="tk" style="top:${Y(y)}px">${y}</span>`;
- const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"";return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="top:${Y(e.start)}px" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="top:${ny[i]}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
+ const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"";return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="top:${Y(e.start)}px" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="top:${ny[i]}px;width:${labelW}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
  const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
-  return `<button class="bk${e.id===sel?" on":""}" style="left:${264+bl[i]*176}px;top:${Y(start(e))}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
+  return `<button class="bk${e.id===sel?" on":""}" style="left:${blockStart+bl[i]*lanePitch}px;top:${Y(start(e))}px;width:${blockW}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
  el.innerHTML=`<div class="cv" style="width:${W}px;height:${HT}px"><i class="ax"></i>${g}${nh}${bk}</div>`;stars()
 }
 function renderX(evs,px,R,el){
- const X=y=>(y-R.lo)*px+16,end=e=>span(e)[1],start=e=>Math.max(e.start,R.lo),finish=e=>Math.min(end(e),R.hi);
+ const space=timelineSpace(),X=y=>(y-R.lo)*px+16,end=e=>span(e)[1],start=e=>Math.max(e.start,R.lo),finish=e=>Math.min(end(e),R.hi);
  const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
  const pack=(a,f)=>{const ends=[];return a.map(i=>{const[s,t]=f(i);let l=ends.findIndex(v=>v<=s);if(l<0){l=ends.length;ends.push(0)}ends[l]=t+6;return l})};
  const nw=e=>Math.min(220,Math.max(130,e.title.length*6.5+48)),bw=e=>Math.max((finish(e)-start(e))*px,120);
  const nl=pack(nodes,e=>[X(e.start)-8,X(e.start)+nw(e)]),bl=pack(blks,e=>[X(start(e)),X(start(e))+bw(e)]);
- const nL=Math.max(0,...nl.map(l=>l+1)),bL=Math.max(0,...bl.map(l=>l+1)),bT=44+nL*40+(nL?12:0);
- const W=Math.max(X(R.hi),...blks.map(e=>X(start(e))+bw(e)),...nodes.map(e=>X(e.start)+nw(e)))+24;
+ const nL=Math.max(0,...nl.map(l=>l+1)),bL=Math.max(0,...bl.map(l=>l+1));
+ // Give rows and long-event cards more breathing room when the screen is taller.
+ const rows=Math.max(1,nL+bL);
+ const nodePitch=Math.max(40,Math.min(64,Math.floor((space.height-140)/rows)));
+ const bT=44+nL*nodePitch+(nL?12:0);
+ const blockPitch=bL?Math.max(96,Math.min(144,Math.floor((space.height-bT-16)/bL))):96;
+ const W=Math.max(space.width,Math.max(X(R.hi),...blks.map(e=>X(start(e))+bw(e)),...nodes.map(e=>X(e.start)+nw(e)))+24);
  const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=64)||10000;let g="";
  for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="vl" style="left:${X(y)}px"></i><span class="hk" style="left:${X(y)}px">${y}</span>`;
- const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*40;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${X(e.start)+12}px;top:${t}px;width:${Math.max(112,nw(e)-20)}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
+ const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*nodePitch;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${X(e.start)+12}px;top:${t}px;width:${Math.max(112,nw(e)-20)}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
  const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
-  return `<button class="bk${e.id===sel?" on":""}" style="left:${X(start(e))}px;top:${bT+bl[i]*96}px;width:${bw(e)}px;height:90px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
- el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*96+16}px"><i class="hx"></i>${g}${nh}${bk}</div>`;stars()
+  return `<button class="bk${e.id===sel?" on":""}" style="left:${X(start(e))}px;top:${bT+bl[i]*blockPitch}px;width:${bw(e)}px;height:90px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
+ el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*blockPitch+16}px"><i class="hx"></i>${g}${nh}${bk}</div>`;stars()
 }
 function renderPanel(){
  const p=$("#panel"),e=cur();
