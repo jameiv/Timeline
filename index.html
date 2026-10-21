@@ -15,20 +15,21 @@ aside{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:aut
 .nav{display:flex;align-items:center;gap:8px;width:100%;min-height:28px;padding:3px 8px;border:0;border-radius:4px;background:none;text-align:left}.nav:hover{background:var(--hv)}
 .nav[aria-pressed="false"]{opacity:.45}.sw{width:10px;height:10px;border-radius:3px;flex:none}.cnt{margin-left:auto;font-size:12px;color:var(--mut)}
 .top{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:var(--mut)}.top .sp{margin-left:auto}
-.page{max-width:1100px;margin:0 auto;padding:24px 48px 80px}h1{font-size:38px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}.mut{color:var(--mut)}
+.page{width:100%;max-width:1450px;margin:0 auto;padding:24px clamp(16px,3vw,48px) 80px}h1{font-size:38px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}.mut{color:var(--mut)}
 .b{padding:4px 10px;border:1px solid var(--ln);border-radius:6px;background:var(--bg)}.b:hover{background:var(--hv)}
 .pri{background:var(--ac);color:#fff;border:0;border-radius:6px;padding:5px 12px;font-weight:500}
-.tools{display:flex;gap:12px;align-items:center;margin:14px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--ln);font-size:13px;color:var(--mut)}
-#tl{overflow-x:auto;position:relative}.cv{position:relative}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:14px 0 18px;padding-bottom:10px;border-bottom:1px solid var(--ln);font-size:13px;color:var(--mut)}
+.yr{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.yr input{width:86px;min-width:0;padding:4px 7px;border:1px solid var(--ln);border-radius:6px;background:var(--bg)}.yr-sep{color:var(--mut)}#yearError{flex-basis:100%;font-size:12px;color:var(--c-conflict)}
+#tl{width:100%;overflow:auto;position:relative;overscroll-behavior:contain}.cv{position:relative}
 .ax{position:absolute;left:56px;top:0;bottom:0;width:2px;background:var(--ln)}.gl{position:absolute;left:58px;right:0;height:1px;background:var(--ln);opacity:.5}
 .tk{position:absolute;left:0;width:48px;text-align:right;font-size:12px;color:var(--mut);transform:translateY(-50%)}
 .dot{position:absolute;left:49px;width:16px;height:16px;padding:0;border-radius:50%;background:var(--c);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--c);transform:translateY(-50%)}
 .dot.on{box-shadow:0 0 0 3px var(--ac)}
-.nd{position:absolute;left:74px;width:176px;height:22px;display:flex;gap:6px;align-items:center;border:0;background:none;text-align:left;border-radius:4px;padding:0 6px}
-.nd:hover,.nd.on{background:var(--hv)}.nd b{font-weight:400;font-size:12px;color:var(--mut);flex:none}.nd span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.nd{position:absolute;left:74px;width:176px;min-height:34px;height:36px;display:flex;gap:6px;align-items:flex-start;border:0;background:none;text-align:left;border-radius:4px;padding:2px 6px;overflow:hidden}
+.nd:hover,.nd.on{background:var(--hv)}.nd b{font-weight:400;font-size:12px;line-height:15px;color:var(--mut);flex:none}.nd span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;flex:1;min-width:0;overflow:hidden;white-space:normal;overflow-wrap:anywhere;text-overflow:ellipsis;line-height:15px}
 .bk{position:absolute;width:168px;text-align:left;border:1px solid var(--ln);border-left:4px solid var(--c);border-radius:6px;background:color-mix(in srgb,var(--c) 9%,var(--bg));padding:6px 8px;overflow:hidden;display:flex;flex-direction:column;gap:3px}
 .bk:hover{background:color-mix(in srgb,var(--c) 16%,var(--bg))}.bk.on{outline:2px solid var(--ac)}
-.bk b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bk small{font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bk b{font-size:13px;line-height:16px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;white-space:normal;overflow:hidden;overflow-wrap:anywhere;text-overflow:ellipsis}.bk small{font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tag{position:relative;display:inline-block;padding:0 7px;border-radius:4px;font-size:12px;line-height:20px;background:color-mix(in srgb,var(--c) 20%,var(--bg))}
 .empty{padding:48px 0;color:var(--mut)}
 #panel{position:fixed;top:0;right:0;bottom:0;z-index:5;width:min(520px,100%);background:var(--bg);border-left:1px solid var(--ln);box-shadow:-8px 0 30px #0002;overflow:auto;padding:calc(14px + env(safe-area-inset-top,0px)) 28px calc(40px + env(safe-area-inset-bottom,0px))}
@@ -47,6 +48,8 @@ dialog::backdrop{background:#0006}dialog.sd{margin:0 0 0 auto;height:100%;max-he
 dialog input:not([type=file]),dialog textarea{border:1px solid var(--ln);border-radius:6px;padding:5px 8px;background:var(--bg);width:100%}
 details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .hr{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--ln)}
+.readonlyText{white-space:pre-wrap;overflow-wrap:anywhere;margin:4px 0 12px}.viewer-note{padding:8px 10px;border-radius:6px;background:var(--hv);font-size:12px;color:var(--mut)}
+@media(max-width:560px){.top{padding:10px 12px}.page{padding:14px 12px 48px}.yr input{width:72px}.seg button{padding:4px 7px}}
 .ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.nav .ic{color:var(--mut)}
 .b,.pri{display:inline-flex;align-items:center;gap:6px}
 .ib{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;padding:0;border:0;border-radius:6px;background:none;color:var(--mut)}.ib:hover{background:var(--hv);color:var(--ink)}
@@ -80,9 +83,9 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 <button class="nav" id="clr" style="margin-top:8px">Clear filters</button>
 </aside>
 <main>
-<div class="top"><span class="sp" id="st" role="status"></span><button class="ib" id="tg" aria-label="Switch theme"><svg class="ic"><use id="tu" href="#i-moon"/></svg></button><button class="pri" id="ne"><svg class="ic"><use href="#i-plus"/></svg>New event</button></div>
+<div class="top"><span class="sp" id="st" role="status"></span><button class="b" id="lo" hidden>Log out</button><button class="ib" id="tg" aria-label="Switch theme"><svg class="ic"><use id="tu" href="#i-moon"/></svg></button><button class="pri" id="ne"><svg class="ic"><use href="#i-plus"/></svg>New event</button></div>
 <div class="page"><h1>Eurana timeline</h1><div class="mut">Filter by type and country in the sidebar. Open any event to edit its context and outcome.</div>
-<div class="tools"><div class="seg" role="group" aria-label="Timeline direction"><button id="dy" aria-pressed="true"><svg class="ic"><use href="#i-down"/></svg>Scroll down</button><button id="dx" aria-pressed="false"><svg class="ic"><use href="#i-right"/></svg>Scroll across</button></div><label>Zoom <input type="range" id="zoom" min="2" max="40" value="12"></label></div>
+<div class="tools"><div class="seg" role="group" aria-label="Timeline direction"><button id="dy" aria-pressed="true"><svg class="ic"><use href="#i-down"/></svg>Scroll down</button><button id="dx" aria-pressed="false"><svg class="ic"><use href="#i-right"/></svg>Scroll across</button></div><label>Zoom <input type="range" id="zoom" min="0.25" max="40" step="0.25" value="12"></label><label class="yr">Years <input type="number" id="yearFrom" placeholder="From" aria-label="First year in range" step="1"><span class="yr-sep">–</span><input type="number" id="yearTo" placeholder="To" aria-label="Last year in range" step="1"></label><button class="b" id="clearYears" type="button">Reset years</button><span id="yearError" hidden>Enter a valid year range, with the first year no later than the last.</span></div>
 <div id="tl"></div></div>
 </main></div>
 <section id="panel" hidden></section>
@@ -102,12 +105,12 @@ details{margin-top:14px}summary{cursor:pointer;font-weight:600}.acts{display:fle
 </dialog>
 <dialog id="ld">
 <div class="ph"><h2>Sign in</h2></div>
-<p class="mut">Sign in with your assigned account to view and edit the timeline.</p>
+<p class="mut">Sign in with your assigned account to edit the timeline, or continue as a read-only guest.</p>
 <input id="lu" placeholder="Username" autocomplete="username" aria-label="Username">
 <input id="lp" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password" style="margin-top:8px">
 <input id="ln" placeholder="Your name (optional)" aria-label="Your name" style="margin-top:8px">
 <p class="mut" id="le" style="color:var(--c-conflict)"></p>
-<div class="acts"><button class="pri" id="lb">Sign in</button></div>
+<div class="acts"><button class="pri" id="lb">Sign in</button><button class="b" id="lg">Sign in as guest</button></div>
 </dialog>
 <script>
 const TYPES=[["conflict","Conflict"],["domestic","Domestic"],["geopolitical","Geopolitical"],["economic","Economic"],["environment","Environment"],["other","Other"]];
@@ -125,35 +128,75 @@ const cn=c=>c.name;
 const span=e=>[e.start,e.kind==="long"?Math.max(e.end??e.start,e.start):e.start];
 function grow(e){const[a,b]=span(e),R=S.range;if(!R)S.range={lo:a-5,hi:b+5};else{if(a<R.lo)R.lo=a-5;if(b>R.hi)R.hi=b+5}}
 function norm(){S.countries.forEach(c=>delete c.year);S.events.forEach(e=>{e.type={ideology:"geopolitical",disaster:"environment",diplomatic:"geopolitical"}[e.type]||e.type});if(!S.range&&S.events.length){const s=S.events.map(span);S.range={lo:Math.min(...s.map(x=>x[0]))-5,hi:Math.max(...s.map(x=>x[1]))+5}}}
-function fit(){const R=S.range,n=R?R.hi-R.lo:50;$("#zoom").value=Math.max(3,Math.min(40,Math.round((DIR==="x"?900:620)/n)))}
-function touch(){setSt("Saving…");clearTimeout(saveT);saveT=setTimeout(flush,500)}
+function fit(){
+ const R=viewRange(S.range);if(!R)return;
+ const years=Math.max(1,R.hi-R.lo),tl=$("#tl"),page=$(".page");
+ const available=DIR==="x"
+  ?Math.max(280,(tl.clientWidth||page.clientWidth||window.innerWidth-260)-96)
+  :Math.max(280,window.innerHeight-300);
+ const z=Math.max(.25,Math.min(40,available/years));
+ $("#zoom").value=String(Math.round(z*4)/4)
+}
+function touch(){if(!canEdit())return;setSt("Saving…");clearTimeout(saveT);saveT=setTimeout(flush,500)}
 const API="https://eurana-api.maniacgaming2007.workers.dev",LIVE=API.startsWith("https://")&&!API.includes("REPLACE-WITH-YOUR-WORKER");
-let tok=localStorage.getItem("chronicle-token")||"",who=localStorage.getItem("chronicle-name")||"",srv=null;
+let tok=localStorage.getItem("chronicle-token")||"",who=localStorage.getItem("chronicle-name")||"",srv=null,guest=localStorage.getItem("chronicle-guest")==="1";
+const canEdit=()=>!guest&&(!LIVE||!!tok);
 const api=b=>fetch(API,{method:"POST",headers:{"Content-Type":"application/json","Authorization":tok?`Bearer ${tok}`:""},body:JSON.stringify({...b,who})}).then(r=>r.json());
 function applyItems(st,items){items.forEach(it=>{const a=st[it.k],i=a.findIndex(x=>x.id===it.id);
  if(it.add){if(i<0)a.push(clone(it.add))}else if(it.del){if(i>=0)a.splice(i,1)}else if(i>=0)for(const p in it.f)a[i][p]=clone(it.f[p][1])});return st}
 async function flush(){
+ if(guest)return;
  if(!LIVE){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}setSt("Saved in this browser");return}
  if(saving){saveT=setTimeout(flush,300);return}await sync()}
 async function sync(first){
+ if(guest||!tok)return;
  saving=true;const sent=clone(S),items=srv?diff(srv,S):[];
  try{const r=await api({a:"save",items,range:S.range});
-  if(!r.ok){if(r.err==="auth"){tok="";localStorage.removeItem("chronicle-token");login();return}throw 0}
+  if(!r.ok){if(r.err==="auth"){tok="";guest=false;localStorage.removeItem("chronicle-token");localStorage.removeItem("chronicle-guest");updateAuthUI();login();return}throw 0}
   const pend=diff(sent,S),old=clone(S);
   S=applyItems(clone(r.state),pend);srv=clone(r.state);
   if(first)init();
   else{const ch=diff(old,S);if(ch.length||JSON.stringify(old.range)!==JSON.stringify(S.range)){applyItems(base,ch);const f=document.activeElement;f&&f.closest("#panel,dialog")?(renderSide(),renderTL()):render()}}
   setSt("All changes saved");if(diff(srv,S).length)saveT=setTimeout(flush,300)}
- catch(e){setSt("Can\u2019t reach the server. Retrying\u2026");saveT=setTimeout(flush,5000)}
+ catch(e){setSt("Can’t reach the server. Retrying…");saveT=setTimeout(flush,5000)}
  finally{saving=false}}
-function login(){$("#lu").value=localStorage.getItem("chronicle-username")||"";$("#ln").value=who;if(!$("#ld").open)$("#ld").showModal()}
+function login(){$("#lu").value=localStorage.getItem("chronicle-username")||"";$("#ln").value=who;if(!$("#ld").open)$("#ld").showModal();updateAuthUI()}
 $("#ld").addEventListener("cancel",e=>e.preventDefault());
 $("#lp").onkeydown=e=>{if(e.key==="Enter")$("#lb").click()};
 $("#lb").onclick=async()=>{$("#le").textContent="";
  try{const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({a:"login",username:$("#lu").value.trim(),password:$("#lp").value})}).then(r=>r.json());
   if(!r.ok){$("#le").textContent="Username or password is incorrect.";return}
-  tok=r.token;who=$("#ln").value.trim();localStorage.setItem("chronicle-token",tok);localStorage.setItem("chronicle-name",who);localStorage.setItem("chronicle-username",$("#lu").value.trim());
-  $("#lp").value="";$("#ld").close();sync(true)}catch(e){$("#le").textContent="Can’t reach the server."}};
+  tok=r.token;guest=false;who=$("#ln").value.trim();localStorage.removeItem("chronicle-guest");localStorage.setItem("chronicle-token",tok);localStorage.setItem("chronicle-name",who);localStorage.setItem("chronicle-username",$("#lu").value.trim());
+  $("#lp").value="";$("#ld").close();updateAuthUI();sync(true)}catch(e){$("#le").textContent="Can’t reach the server."}};
+async function startGuest(){
+ $("#le").textContent="Loading read-only timeline…";
+ guest=true;tok="";who="";localStorage.removeItem("chronicle-token");localStorage.removeItem("chronicle-name");localStorage.setItem("chronicle-guest","1");
+ updateAuthUI();
+ if(!LIVE){
+  try{const cached=localStorage.getItem(LS);if(cached)S=JSON.parse(cached)}catch(e){}
+  $("#ld").close();init();setSt("Guest view · read only");return true
+ }
+ try{
+  const r=await api({a:"view"});
+  if(!r||!r.ok||!r.state||!Array.isArray(r.state.events)||!Array.isArray(r.state.countries))throw new Error("view unsupported");
+  S=clone(r.state);srv=clone(S);norm();$("#ld").close();init();setSt("Guest view · read only");updateAuthUI();return true
+ }catch(e){
+  guest=false;localStorage.removeItem("chronicle-guest");updateAuthUI();
+  $("#le").textContent="Guest view is not enabled by the server yet. The Cloudflare Worker needs to support a read-only 'view' action.";
+  return false
+ }}
+$("#lg").onclick=()=>startGuest();
+$("#lo").onclick=async()=>{
+ if(!guest&&tok){
+  clearTimeout(saveT);saveT=null;
+  while(saving)await new Promise(resolve=>setTimeout(resolve,50));
+  if(tok)await sync();
+ }
+ clearTimeout(saveT);saveT=null;
+ tok="";who="";guest=false;srv=null;sel=null;H=[];S={range:null,countries:[],events:[]};base=clone(S);
+ localStorage.removeItem("chronicle-token");localStorage.removeItem("chronicle-name");localStorage.removeItem("chronicle-guest");
+ updateAuthUI();render();setSt("");login()
+};
 function diff(a,b){const out=[];
  for(const k of["events","countries"]){
   const A=new Map(a[k].map(x=>[x.id,x])),B=new Set(b[k].map(x=>x.id));
@@ -166,7 +209,7 @@ function commit(){const items=diff(base,S);if(!items.length)return;
  const nm=it=>{const o=it.add||it.del||S[it.k].find(x=>x.id===it.id)||{};return o.title||o.name||"Untitled"},w=it=>it.k==="events"?"event":"country";
  const label=items.length>1?`${items.length} changes`:(it=>it.add?`Added ${w(it)} “${nm(it)}”`:it.del?`Deleted ${w(it)} “${nm(it)}”`:`Edited ${w(it)} “${nm(it)}”: ${Object.keys(it.f).map(k=>k==="cs"?"countries":k==="year"?"founded":k).join(", ")}`)(items[0]);
  base=clone(S);H.unshift({id:uid(),t:new Date(),items,label,undone:false});H.length=Math.min(H.length,100);renderH()}
-function undo(id){const r=H.find(x=>x.id===id);if(!r||r.undone)return;
+function undo(id){if(!canEdit())return;const r=H.find(x=>x.id===id);if(!r||r.undone)return;
  r.items.forEach(it=>{const a=S[it.k],i=a.findIndex(x=>x.id===it.id);
   if(it.add){if(i>=0)a.splice(i,1)}
   else if(it.del){if(i<0)a.splice(Math.min(it.i,a.length),0,clone(it.del))}
@@ -179,41 +222,56 @@ function renderSide(){
  $("#types").innerHTML=TYPES.map(([id,n])=>`<button class="nav" data-t="${id}" aria-pressed="${!off.has(id)}"><i class="sw" style="background:var(--c-${id})"></i>${n}</button>`).join("");
  $("#cf").innerHTML=S.countries.map(c=>`<label class="nav"><input type="checkbox" data-cf="${c.id}" ${onC.has(c.id)?"checked":""}>${esc(c.name)}</label>`).join("")||'<p class="mut" style="margin:4px 8px">No countries yet.</p>'}
 function renderTL(){
- const px=+$("#zoom").value,el=$("#tl"),R=S.range;
- if(!R||!S.events.length){el.innerHTML='<p class="empty">No events yet. Choose New event to add the first one.</p>';return}
- const evs=S.events.filter(e=>!off.has(e.type)&&(!majOnly||e.major)&&(!onC.size||e.cs.some(c=>onC.has(c)))).sort((a,b)=>a.start-b.start);
+ const px=+$("#zoom").value,el=$("#tl"),R=viewRange(S.range);
+ if(!S.range||!S.events.length){el.innerHTML='<p class="empty">No events yet. Choose New event to add the first one.</p>';return}
+ if(!R){el.innerHTML='<p class="empty">Enter a valid year range.</p>';return}
+ const end=e=>span(e)[1],start=e=>Math.max(e.start,R.lo),finish=e=>Math.min(end(e),R.hi);
+ const evs=S.events.filter(e=>end(e)>=R.lo&&e.start<=R.hi&&!off.has(e.type)&&(!majOnly||e.major)&&(!onC.size||e.cs.some(c=>onC.has(c)))).sort((a,b)=>a.start-b.start);
  if(!evs.length){el.innerHTML='<p class="empty">No events match these filters.</p>';return}
  if(DIR==="x")return renderX(evs,px,R,el);
- const Y=y=>(y-R.lo)*px+10,end=e=>span(e)[1];
+ const Y=y=>(y-R.lo)*px+10;
  const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
- let prev=-99;const ny=nodes.map(e=>{const y=Math.max(Y(e.start)-11,prev+24);prev=y;return y});
- const bh=e=>Math.max((end(e)-e.start)*px,70),ends=[];
- const bl=blks.map(e=>{const s=Y(e.start);let l=ends.findIndex(v=>v<=s);if(l<0){l=ends.length;ends.push(0)}ends[l]=s+bh(e)+6;return l});
- const HT=Math.max(Y(R.hi)+10,prev+30,...blks.map(e=>Y(e.start)+bh(e)+10)),W=264+Math.max(1,ends.length)*176;
+ let prev=-99;const ny=nodes.map(e=>{const y=Math.max(Y(e.start)-11,prev+38);prev=y;return y});
+ const bh=e=>Math.max((finish(e)-start(e))*px,90),ends=[];
+ const bl=blks.map(e=>{const sy=Y(start(e));let l=ends.findIndex(v=>v<=sy);if(l<0){l=ends.length;ends.push(0)}ends[l]=sy+bh(e)+6;return l});
+ const HT=Math.max(Y(R.hi)+10,prev+42,...blks.map(e=>Y(start(e))+bh(e)+10)),W=264+Math.max(1,ends.length)*176;
  const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=44)||10000;let g="";
  for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="gl" style="top:${Y(y)}px"></i><span class="tk" style="top:${Y(y)}px">${y}</span>`;
  const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"";return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="top:${Y(e.start)}px" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="top:${ny[i]}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
  const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
-  return `<button class="bk${e.id===sel?" on":""}" style="left:${264+bl[i]*176}px;top:${Y(e.start)}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
- el.innerHTML=`<div class="cv" style="width:${W}px;height:${HT}px"><i class="ax"></i>${g}${nh}${bk}</div>`;stars()}
+  return `<button class="bk${e.id===sel?" on":""}" style="left:${264+bl[i]*176}px;top:${Y(start(e))}px;height:${bh(e)}px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
+ el.innerHTML=`<div class="cv" style="width:${W}px;height:${HT}px"><i class="ax"></i>${g}${nh}${bk}</div>`;stars()
+}
 function renderX(evs,px,R,el){
- const X=y=>(y-R.lo)*px+16,end=e=>span(e)[1];
+ const X=y=>(y-R.lo)*px+16,end=e=>span(e)[1],start=e=>Math.max(e.start,R.lo),finish=e=>Math.min(end(e),R.hi);
  const nodes=evs.filter(e=>e.kind!=="long"),blks=evs.filter(e=>e.kind==="long");
  const pack=(a,f)=>{const ends=[];return a.map(i=>{const[s,t]=f(i);let l=ends.findIndex(v=>v<=s);if(l<0){l=ends.length;ends.push(0)}ends[l]=t+6;return l})};
- const nw=e=>Math.min(200,e.title.length*7+50),bw=e=>Math.max((end(e)-e.start)*px,120);
- const nl=pack(nodes,e=>[X(e.start)-8,X(e.start)+nw(e)]),bl=pack(blks,e=>[X(e.start),X(e.start)+bw(e)]);
- const nL=Math.max(0,...nl.map(l=>l+1)),bL=Math.max(0,...bl.map(l=>l+1)),bT=44+nL*26+(nL?12:0);
- const W=Math.max(X(R.hi),...blks.map(e=>X(e.start)+bw(e)),...nodes.map(e=>X(e.start)+nw(e)))+24;
+ const nw=e=>Math.min(220,Math.max(130,e.title.length*6.5+48)),bw=e=>Math.max((finish(e)-start(e))*px,120);
+ const nl=pack(nodes,e=>[X(e.start)-8,X(e.start)+nw(e)]),bl=pack(blks,e=>[X(start(e)),X(start(e))+bw(e)]);
+ const nL=Math.max(0,...nl.map(l=>l+1)),bL=Math.max(0,...bl.map(l=>l+1)),bT=44+nL*40+(nL?12:0);
+ const W=Math.max(X(R.hi),...blks.map(e=>X(start(e))+bw(e)),...nodes.map(e=>X(e.start)+nw(e)))+24;
  const st=[1,2,5,10,20,50,100,200,500,1000,2000,5000].find(s=>s*px>=64)||10000;let g="";
  for(let y=Math.ceil(R.lo/st)*st;y<=R.hi;y+=st)g+=`<i class="vl" style="left:${X(y)}px"></i><span class="hk" style="left:${X(y)}px">${y}</span>`;
- const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*26;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${X(e.start)+12}px;top:${t}px;width:${nw(e)-20}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
+ const nh=nodes.map((e,i)=>{const on=e.id===sel?" on":"",t=44+nl[i]*40;return `<div style="--c:var(--c-${e.type})"><button class="dot${on}" style="left:${X(e.start)-8}px;top:${t+3}px;transform:none" data-e="${e.id}" aria-label="${esc(e.title)}, year ${e.start}"></button><button class="nd${on}" style="left:${X(e.start)+12}px;top:${t}px;width:${Math.max(112,nw(e)-20)}px" data-e="${e.id}" title="${esc(e.title)} (${e.start})"><b>${e.start}</b><span>${esc(e.title)}</span></button></div>`}).join("");
  const bk=blks.map((e,i)=>{const names=e.cs.map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>cn(c,e)).join(", ");
-  return `<button class="bk${e.id===sel?" on":""}" style="left:${X(e.start)}px;top:${bT+bl[i]*70}px;width:${bw(e)}px;height:62px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
- el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*70+16}px"><i class="hx"></i>${g}${nh}${bk}</div>`;stars()}
+  return `<button class="bk${e.id===sel?" on":""}" style="left:${X(start(e))}px;top:${bT+bl[i]*96}px;width:${bw(e)}px;height:90px;--c:var(--c-${e.type})" data-e="${e.id}" title="${esc(e.title)} (${e.start} to ${end(e)})"><b>${esc(e.title)}</b><span><span class="tag">${TN[e.type]||e.type}</span> <small>${e.start} to ${end(e)}</small></span><small>${esc(names)||"No countries"}</small></button>`}).join("");
+ el.innerHTML=`<div class="cv" style="width:${W}px;height:${bT+bL*96+16}px"><i class="hx"></i>${g}${nh}${bk}</div>`;stars()
+}
 function renderPanel(){
  const p=$("#panel"),e=cur();
  if(!e){p.hidden=true;p.innerHTML="";return}
  const long=e.kind==="long";p.hidden=false;
+ if(guest){
+  const names=(e.cs||[]).map(id=>S.countries.find(c=>c.id===id)).filter(Boolean).map(c=>c.name).join(", ");
+  p.innerHTML=`<div class="top2"><button class="b" data-a="close" aria-label="Close">${ic("x")}</button><span class="mut">${long?"Long-term event":"Trigger event"}</span></div>
+  <div class="viewer-note">Guest view · read only</div><h2 style="font-size:26px;line-height:1.2;margin:16px 0 18px;overflow-wrap:anywhere">${esc(e.title)}</h2>
+  <div class="pr"><span>Type</span><div>${esc(TN[e.type]||e.type||"Other")}${e.major?' · Major event':''}</div></div>
+  <div class="pr"><span>${long?"Years":"Year"}</span><div>${e.start}${long&&e.end!==e.start?`–${e.end}`:""}</div></div>
+  <div class="pr"><span>Countries</span><div>${esc(names)||"No countries listed"}</div></div>
+  <h3>Context</h3><div class="readonlyText">${esc(e.context)||'<span class="mut">No context provided.</span>'}</div>
+  <h3>Outcome</h3><div class="readonlyText">${esc(e.outcome)||'<span class="mut">No outcome provided.</span>'}</div>`;
+  return
+ }
  p.innerHTML=`<div class="top2"><button class="b" data-a="close" aria-label="Close">${ic("x")}</button><span class="mut">${long?"Long-term event":"Trigger event"}</span></div>
 <input class="ttl" data-f="title" value="${esc(e.title)}" placeholder="Untitled" aria-label="Title">
 <div class="pr"><span>Kind</span><select data-f="kind"><option value="trigger"${long?"":" selected"}>Trigger event</option><option value="long"${long?" selected":""}>Long-term event</option></select></div>
@@ -224,7 +282,8 @@ ${long?`<div class="pr"><span>End year</span><input type="number" data-f="end" v
 <div class="pr"><span>Countries</span><div id="cc">${chips(e)}</div></div>
 <h3>Context</h3><textarea data-f="context" placeholder="What led up to this?">${esc(e.context)}</textarea>
 <h3>Outcome</h3><textarea data-f="outcome" placeholder="What changed afterwards?">${esc(e.outcome)}</textarea>
-<button class="b danger" data-a="del">Delete event</button>`}
+<button class="b danger" data-a="del">Delete event</button>`
+}
 function render(){renderSide();renderTL();renderPanel()}
 function renderCT(){$("#ct").innerHTML='<div class="tr th"><span>Name</span><span></span></div>'+S.countries.map(c=>`<div class="tr" data-k="${c.id}"><input data-g="name" value="${esc(c.name)}" aria-label="Country name"><button class="b" data-del="${c.id}" aria-label="Delete ${esc(c.name)}">${ic("x")}</button></div>`).join("")}
 const open=id=>{sel=id;renderTL();renderPanel()},closeP=()=>{sel=null;renderTL();renderPanel()};
@@ -235,54 +294,86 @@ $("#types").onclick=ev=>{const b=ev.target.closest("[data-t]");if(!b)return;off.
 $("#cf").oninput=ev=>{const id=ev.target.dataset.cf;if(!id)return;ev.target.checked?onC.add(id):onC.delete(id);renderTL()};
 $("#clr").onclick=()=>{off.clear();onC.clear();majOnly=false;$("#mj").setAttribute("aria-pressed","false");renderSide();renderTL()};
 $("#mj").onclick=()=>{majOnly=!majOnly;$("#mj").setAttribute("aria-pressed",majOnly);renderTL()};
-$("#ne").onclick=()=>{const last=S.events.length?Math.max(...S.events.map(e=>e.start)):0;
+$("#ne").onclick=()=>{if(!canEdit())return;const last=S.events.length?Math.max(...S.events.map(e=>e.start)):0;
  const e={id:uid(),title:"Untitled event",kind:"trigger",type:"conflict",start:last,end:last,cs:[],context:"",outcome:""};
  S.events.push(e);off.delete("conflict");grow(e);commit();touch();renderSide();open(e.id)};
-$("#panel").oninput=ev=>{const t=ev.target,e=cur();if(!e)return;const f=t.dataset.f;
+$("#panel").oninput=ev=>{if(!canEdit())return;const t=ev.target,e=cur();if(!e)return;const f=t.dataset.f;
  if(f){let v=t.value;if(t.type==="number"){if(v===""||isNaN(+v))return;v=+v}e[f]=v;
   if(f==="kind"){if(v==="long"&&(e.end==null||e.end<e.start))e.end=e.start;grow(e);commit();renderPanel();renderTL();touch();return}
   if(f==="start"||f==="end"){if(e.end<e.start)e.end=e.start;if(f==="start")$("#cc").innerHTML=chips(e);touch();return}}
  else if(t.dataset.c){const a=new Set(e.cs);t.checked?a.add(t.dataset.c):a.delete(t.dataset.c);e.cs=[...a]} else if("m" in t.dataset)e.major=t.checked;
  else return;
  touch();renderTL()};
-$("#panel").onchange=()=>{const e=cur();if(!e)return;grow(e);renderTL();commit()};
-$("#panel").onclick=ev=>{const b=ev.target.closest("[data-a]");if(!b)return;
+$("#panel").onchange=()=>{if(!canEdit())return;const e=cur();if(!e)return;grow(e);renderTL();commit()};
+$("#panel").onclick=ev=>{const b=ev.target.closest("[data-a]");if(!b)return;if(!canEdit()&&b.dataset.a!=="close")return;
  if(b.dataset.a==="close")closeP();else{S.events=S.events.filter(e=>e.id!==sel);sel=null;commit();touch();render()}};
 $("#hb").onclick=()=>{renderH();$("#hd").showModal()};$("#hx").onclick=()=>$("#hd").close();
 $("#hl").onclick=ev=>{const id=ev.target.dataset.u;if(id)undo(id)};
-$("#ec").onclick=()=>{renderCT();$("#cd").showModal()};$("#cx").onclick=()=>$("#cd").close();
-$("#ca").onclick=()=>{S.countries.push({id:uid(),name:"New country"});commit();touch();renderCT();render()};
-$("#ct").oninput=ev=>{const t=ev.target,c=S.countries.find(c=>c.id===t.closest("[data-k]")?.dataset.k);if(!c||!t.dataset.g)return;
+$("#ec").onclick=()=>{if(!canEdit())return;renderCT();$("#cd").showModal()};$("#cx").onclick=()=>$("#cd").close();
+$("#ca").onclick=()=>{if(!canEdit())return;S.countries.push({id:uid(),name:"New country"});commit();touch();renderCT();render()};
+$("#ct").oninput=ev=>{if(!canEdit())return;const t=ev.target,c=S.countries.find(c=>c.id===t.closest("[data-k]")?.dataset.k);if(!c||!t.dataset.g)return;
  c.name=t.value;touch();render()};
-$("#ct").onchange=commit;
-$("#ct").onclick=ev=>{const id=ev.target.closest("[data-del]")?.dataset.del;if(!id)return;
+$("#ct").onchange=()=>{if(canEdit())commit()};
+$("#ct").onclick=ev=>{if(!canEdit())return;const id=ev.target.closest("[data-del]")?.dataset.del;if(!id)return;
  S.countries=S.countries.filter(c=>c.id!==id);S.events.forEach(e=>e.cs=e.cs.filter(x=>x!==id));onC.delete(id);commit();touch();renderCT();render()};
 function imp(txt){let n=0;txt.split(/\r?\n/).forEach(ln=>{if(!ln.trim())return;
  const p=ln.split(/\t|,/).map(s=>s.trim().replace(/^"|"$/g,"")),name=p[0];if(!name||/^name$/i.test(name))return;
  
  const c=S.countries.find(c=>c.name.toLowerCase()===name.toLowerCase());if(!c){S.countries.push({id:uid(),name});n++}});
  if(n){commit();touch();renderCT();render()}}
-$("#ci").onclick=()=>{imp($("#cp").value);$("#cp").value=""};
-$("#cfile").onchange=ev=>{const f=ev.target.files[0];if(f)f.text().then(imp);ev.target.value=""};
-$("#cdl").onclick=()=>{const r=S.countries.length?S.countries:[{name:"Example Kingdom"}],a=document.createElement("a");
+$("#ci").onclick=()=>{if(!canEdit())return;imp($("#cp").value);$("#cp").value=""};
+$("#cfile").onchange=ev=>{if(!canEdit())return;const f=ev.target.files[0];if(f)f.text().then(imp);ev.target.value=""};
+$("#cdl").onclick=()=>{if(!canEdit())return;const r=S.countries.length?S.countries:[{name:"Example Kingdom"}],a=document.createElement("a");
  a.href=URL.createObjectURL(new Blob(["Name\n"+r.map(c=>`"${c.name.replace(/"/g,'""')}"`).join("\n")],{type:"text/csv"}));a.download="countries.csv";a.click()};
 const ic=n=>`<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 let majOnly=false;
 function stars(){document.querySelectorAll("#tl .nd,#tl .bk").forEach(b=>{const e=S.events.find(x=>x.id===b.dataset.e);if(e&&e.major)b.querySelector("b").insertAdjacentHTML(b.classList.contains("bk")?"afterbegin":"beforeend",ic("star").replace('class="ic"','class="ic sm"'))})}
 const UI=(()=>{try{return JSON.parse(localStorage.getItem("chronicle-ui"))||{}}catch(e){return{}}})();
 let DIR=UI.dir==="x"?"x":"y";
+const savedYear=v=>v===null||v===undefined||v===""?null:(Number.isSafeInteger(Number(v))?Number(v):null);
+let yearLo=savedYear(UI.yearLo),yearHi=savedYear(UI.yearHi);
 if(UI.theme)document.documentElement.dataset.theme=UI.theme;
 const isDark=()=>(document.documentElement.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"))==="dark";
-function saveUI(){try{localStorage.setItem("chronicle-ui",JSON.stringify({theme:document.documentElement.dataset.theme,dir:DIR}))}catch(e){}}
+function viewRange(R){
+ if(!R)return null;
+ let lo=yearLo===null?R.lo:yearLo,hi=yearHi===null?R.hi:yearHi;
+ if(yearLo!==null&&yearHi===null&&lo>hi)hi=lo;
+ if(yearHi!==null&&yearLo===null&&hi<lo)lo=hi;
+ return lo<=hi?{lo,hi}:null
+}
+function saveUI(){try{localStorage.setItem("chronicle-ui",JSON.stringify({theme:document.documentElement.dataset.theme,dir:DIR,yearLo,yearHi}))}catch(e){}}
 function applyUI(){const d=isDark();$("#tu").setAttribute("href",d?"#i-sun":"#i-moon");$("#tg").setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");$("#dy").setAttribute("aria-pressed",DIR==="y");$("#dx").setAttribute("aria-pressed",DIR==="x")}
+function updateAuthUI(){
+ const editable=canEdit();
+ $("#ne").hidden=!editable;$("#ec").hidden=!editable;
+ $("#lo").hidden=!(tok||guest);$("#lo").textContent=guest?"Exit guest view":"Log out";
+}
+function readYearFilter(){
+ const read=id=>{const raw=$(id).value.trim();if(!raw)return{ok:true,value:null};const n=Number(raw);return{ok:Number.isSafeInteger(n),value:Number.isSafeInteger(n)?n:null}};
+ const lo=read("#yearFrom"),hi=read("#yearTo");
+ if(!lo.ok||!hi.ok||(lo.value!==null&&hi.value!==null&&lo.value>hi.value)){
+  $("#yearError").hidden=false;return
+ }
+ yearLo=lo.value;yearHi=hi.value;$("#yearError").hidden=true;saveUI();fit();renderTL()
+}
+$("#yearFrom").value=yearLo===null?"":String(yearLo);$("#yearTo").value=yearHi===null?"":String(yearHi);
+$("#yearFrom").addEventListener("change",readYearFilter);$("#yearTo").addEventListener("change",readYearFilter);
+$("#yearFrom").addEventListener("keydown",e=>{if(e.key==="Enter")readYearFilter()});$("#yearTo").addEventListener("keydown",e=>{if(e.key==="Enter")readYearFilter()});
+$("#clearYears").onclick=()=>{yearLo=yearHi=null;$("#yearFrom").value="";$("#yearTo").value="";$("#yearError").hidden=true;saveUI();fit();renderTL()};
 function setDir(d){if(d===DIR)return;DIR=d;saveUI();fit();applyUI();renderTL()}
 $("#tg").onclick=()=>{document.documentElement.dataset.theme=isDark()?"light":"dark";saveUI();applyUI()};
 $("#dy").onclick=()=>setDir("y");$("#dx").onclick=()=>setDir("x");
-function init(){norm();fit();applyUI();base=clone(S);sel=null;render();renderH()}
+let resizeTimer=null;
+window.addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{fit();renderTL()},100)});
+function init(){norm();fit();applyUI();updateAuthUI();base=clone(S);sel=null;render();renderH()}
 (async()=>{
- if(!LIVE){try{const t=localStorage.getItem(LS);if(t)S=JSON.parse(t)}catch(e){}init();setSt("Not connected: saving in this browser only");return}
- S={range:null,countries:[],events:[]};init();setSt("Connecting\u2026");
- setInterval(()=>{if(!saving&&!document.hidden&&tok)sync(!srv)},20000);
+ if(!LIVE){
+  try{const t=localStorage.getItem(LS);if(t)S=JSON.parse(t)}catch(e){}
+  init();setSt(guest?"Guest view · read only":"Not connected: saving in this browser only");return
+ }
+ S={range:null,countries:[],events:[]};init();setSt("Connecting…");
+ setInterval(()=>{if(!saving&&!document.hidden&&tok&&!guest)sync(!srv)},20000);
+ if(guest){await startGuest();return}
  if(!tok)return login();
  await sync(true);
 })();
